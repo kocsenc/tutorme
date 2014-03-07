@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ZAK DOST</string>
+    <string name="emailFieldLabel">Email</string>
+    <string name="passwordFieldLabel">Password</string>
+    <string name="passwordConfirmFieldLabel">Confirm Password</string>
+    <string name="loginButtonLabel">Login</string>
+    <string name="registerTextLabel">Don\'t have an account?</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
