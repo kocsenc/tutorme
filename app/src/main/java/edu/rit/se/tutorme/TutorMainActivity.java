@@ -178,7 +178,7 @@ public class TutorMainActivity extends Activity implements ActionBar.TabListener
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_tutor_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.textView);
             textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;

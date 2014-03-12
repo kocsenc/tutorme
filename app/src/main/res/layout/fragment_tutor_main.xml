@@ -1,0 +1,38 @@
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/gray">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Craig Cabrey"
+        android:id="@+id/profile_name"
+        android:singleLine="true"
+        android:phoneNumber="false"
+        android:password="false"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|top"
+        android:textSize="32dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:id="@+id/edit_profile"
+        android:background="@color/red"
+        android:textColor="#fdfdfe"
+        android:singleLine="true"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textView"
+        android:layout_gravity="center" />
+
+</FrameLayout>
