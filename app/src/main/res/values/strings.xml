@@ -4,5 +4,10 @@
     <string name="app_name">Tutorme</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_tutor_main">TutorMainActivity</string>
+    <string name="title_section1">Profile</string>
+    <string name="title_section2">Requests</string>
+    <string name="title_section3">Messages</string>
+
 
 </resources>

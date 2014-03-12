@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="edu.rit.se.tutorme.TutorMainActivity"
+            android:label="@string/title_activity_tutor_main" >
+        </activity>
     </application>
 
 </manifest>
