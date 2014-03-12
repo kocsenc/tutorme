@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:gravity="center_vertical"
-    android:background="@color/light_black">
+    android:background="@color/red">
 
     <TableRow
         android:layout_width="fill_parent"
@@ -18,6 +18,6 @@
             android:layout_row="22"
             android:layout_column="10"
             android:onClick="onLoginClick"
-            android:background="@color/red" />
+            android:background="@color/gray" />
     </TableRow>
 </TableLayout>
