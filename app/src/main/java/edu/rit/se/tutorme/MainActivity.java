@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
     }
 
     public void onLoginClick(View v) {
-        Intent i = new Intent(this, TutorMainActivity.class);
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
     }
 
