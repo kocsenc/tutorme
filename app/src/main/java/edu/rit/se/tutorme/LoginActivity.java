@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +42,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.rit.se.tutorme.communications.HttpRequest;
 
 
 /**
@@ -274,52 +280,24 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            // HTTP Post
+            HttpRequest requester = new HttpRequest();
+            String ret = requester.sendPost("http://zbox.student.rit.edu:3000/users/login", "email=" + mEmail + "&password=" + mPassword);
+            String status = "";
             try {
-                String url = "http://zbox.student.rit.edu:3000/login";
-                String charset = "UTF-8";
-                String param1 = "kxc4519@rit.edu";
-                String param2 = "derp";
-                String query = String.format("email=%s&password=%s", URLEncoder.encode(param1), URLEncoder.encode(param2));
-
-                URLConnection connection = new URL(url).openConnection();
-                connection.setDoOutput(true); // Triggers POST.
-                connection.setRequestProperty("Accept-Charset", charset);
-                connection.setRequestProperty("Content-Type", "application/json");
-
-                OutputStream output = connection.getOutputStream();
-                try {
-                    output.write(query.getBytes(charset));
-                } finally {
-                    try {
-                        output.close();
-                    } catch (IOException e) {
-                    }
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+                JSONObject jsonResponse = new JSONObject(ret);
+                Log.d("Tutorme login", jsonResponse.getString("status"));
+                Log.d("Tutorme login", jsonResponse.getString("token"));
+                status = jsonResponse.getString("status");
+                String token = jsonResponse.getString("token");
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            if (status == "success") {
+                return true;
+            } else {
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
