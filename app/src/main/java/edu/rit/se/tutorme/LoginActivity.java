@@ -279,10 +279,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             HttpRequest requester = new HttpRequest();
             String ret = requester.sendPost("http://zbox.student.rit.edu:3000/users/login", "email=" + mEmail + "&password=" + mPassword);
             String status = "";
+
             try {
                 JSONObject jsonResponse = new JSONObject(ret);
                 Log.d("Tutorme login", jsonResponse.getString("status"));
@@ -290,7 +290,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 status = jsonResponse.getString("status");
                 String token = jsonResponse.getString("token");
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.d("Tutorme login", "Error. Email and/or pass may be incorrect.");
             }
 
             if (status == "success") {
