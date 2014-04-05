@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.rit.se.tutorme.api.TutorMeAPI;
+import edu.rit.se.tutorme.api.TutorMeUser;
 
 
 /**
@@ -269,7 +270,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         @Override
         protected Boolean doInBackground(Void... params) {
             TutorMeAPI api = new TutorMeAPI();
-            return api.login(mEmail, mPassword);
+            TutorMeUser user = api.login(mEmail, mPassword);
+
+            if (user == null) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         @Override

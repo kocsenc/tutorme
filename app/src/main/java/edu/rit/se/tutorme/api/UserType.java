@@ -8,6 +8,20 @@ public enum UserType {
     Tutor;
 
     /**
+     * Convert String integer to UserType.
+     * @param type string integer that represents the UserType
+     * @return UserType represented by the passed type
+     */
+    public static UserType toUserType(String type) {
+        switch(type) {
+            case "0": return UserType.Student;
+            case "1": return UserType.Tutor;
+        }
+
+        return null;
+    }
+
+    /**
      * UserType toString method.
      * @return 1 if student, 2 if tutor
      */

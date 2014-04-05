@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Craig Cabrey on 4/5/14.
+ * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public class TutorMeAPI {
 
@@ -33,7 +33,7 @@ public class TutorMeAPI {
      * @param password of the user
      * @return true if successful, false otherwise.
      */
-    public boolean login(String email, String password) {
+    public TutorMeUser login(String email, String password) {
         JSONObject loginRequestBody = new JSONObject();
 
         try {
@@ -44,13 +44,13 @@ public class TutorMeAPI {
             JSONObject response = new JSONObject(rawResponse);
 
             if (response.get("status").equals("success")) {
-                return true;
+                return new TutorMeUser((JSONObject) response.get("user"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 
     /**
