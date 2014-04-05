@@ -1,4 +1,4 @@
-package edu.rit.se.tutorme.communications;
+package edu.rit.se.tutorme.api;
 
 /**
  * Created by Kocsen on 3/18/14.
@@ -28,7 +28,11 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class HttpRequest {
+/**
+ * Class to abstract away the intricacies of
+ * performing HTTP GET/POST/PUT/DELETE calls.
+ */
+class HttpRequest {
 
     DefaultHttpClient httpClient;
     HttpContext localContext;
@@ -80,7 +84,7 @@ public class HttpRequest {
 
         StringEntity tmp = null;
 
-        Log.d("Tutorme", "Setting httpPost headers");
+        Log.d("TutorMe", "Setting httpPost headers");
 
         httpPost.setHeader("User-Agent", "SET YOUR USER AGENT STRING HERE");
         httpPost.setHeader("Accept", "text/html,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");

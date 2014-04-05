@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -30,20 +29,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.rit.se.tutorme.communications.HttpRequest;
+import edu.rit.se.tutorme.api.TutorMeAPI;
 
 
 /**
@@ -279,25 +268,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            HttpRequest requester = new HttpRequest();
-            String ret = requester.sendPost("http://zbox.student.rit.edu:3000/users/login", "email=" + mEmail + "&password=" + mPassword);
-            String status = "";
-
-            try {
-                JSONObject jsonResponse = new JSONObject(ret);
-                Log.d("Tutorme login", jsonResponse.getString("status"));
-                Log.d("Tutorme login", jsonResponse.getString("token"));
-                status = jsonResponse.getString("status");
-                String token = jsonResponse.getString("token");
-            } catch (JSONException e) {
-                Log.d("Tutorme login", "Error. Email and/or pass may be incorrect.");
-            }
-
-            if (status == "success") {
-                return true;
-            } else {
-                return false;
-            }
+            TutorMeAPI api = new TutorMeAPI();
+            return api.login(mEmail, mPassword);
         }
 
         @Override
