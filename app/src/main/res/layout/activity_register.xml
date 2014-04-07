@@ -1,0 +1,170 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/red"
+    android:gravity="center_vertical"
+    tools:context="edu.rit.se.tutorme.RegisterActivity">
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/register_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="false"
+        android:baselineAligned="false"
+        android:weightSum="1"
+        android:gravity="center_vertical|center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="119dp"
+            android:gravity="center_vertical|center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_signin"
+                android:src="@drawable/ic_tutorme"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/signinicon"
+                android:visibility="visible"
+                android:scaleType="fitXY" />
+
+        </RelativeLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/prompt_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_fname"
+            android:inputType="number|textPostalAddress|textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray"
+            android:linksClickable="false" />
+
+        <AutoCompleteTextView
+            android:id="@+id/prompt_lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_lname"
+            android:inputType="number|textPostalAddress|textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray"
+            android:linksClickable="false" />
+
+        <AutoCompleteTextView
+            android:id="@+id/zipcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_zipcode"
+            android:inputType="number|textPostalAddress|textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray"
+            android:linksClickable="false" />
+
+        <AutoCompleteTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray" />
+
+        <EditText
+            android:id="@+id/password_retype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/retype_password"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@+id/icon_signin"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="60dp"
+            android:gravity="left"
+            android:baselineAligned="false">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student"
+                android:id="@+id/radioButton"
+                android:layout_above="@+id/register_form"
+
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teacher"
+                android:id="@+id/radioButton"
+                android:layout_above="@+id/register_form" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/register_button"
+            android:textStyle="bold"
+            android:background="@color/light_black"
+            android:clickable="true"
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
