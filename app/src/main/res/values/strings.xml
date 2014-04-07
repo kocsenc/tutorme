@@ -8,6 +8,7 @@
     <string name="title_section1">My Profile</string>
     <string name="title_section2">Requests</string>
     <string name="title_section3">Messages</string>
+    <string name="signinicon">sign_in_icon</string>
 
 
 </resources>
