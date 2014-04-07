@@ -1,6 +1,86 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tutor_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.rit.se.tutorme.TutorMainActivity" />
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:focusable="false"
+        android:baselineAligned="false"
+        android:weightSum="1"
+        android:gravity="center_vertical|center_horizontal" >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="162dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Bio"
+                        android:id="@+id/textView" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="I am a super duper tutor and I love my friends!"
+                        android:id="@+id/textView2" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/gray"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:id="@+id/button"
+            android:background="@color/red"
+            android:clickable="true"
+            android:enabled="false"
+            android:textColor="@color/gray" />
+
+    </LinearLayout>
+</RelativeLayout>
