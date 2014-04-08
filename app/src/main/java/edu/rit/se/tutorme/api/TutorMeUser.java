@@ -18,7 +18,7 @@ public class TutorMeUser {
      */
     public TutorMeUser(JSONObject userData) {
         try {
-            this.userType = UserType.toUserType((String) userData.get("type"));
+            this.userType = UserType.toUserType(userData.get("type").toString());
             this.name = (String) userData.get("name");
             this.email = (String) userData.get("email");
         } catch (JSONException e) {
