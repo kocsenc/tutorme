@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -38,7 +39,11 @@ public class TutorMainActivity extends Activity implements ActionBar.TabListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Intent myIntent = getIntent();
+        Intent myIntent = getIntent();
+        String value = myIntent.getStringExtra("Username");
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+        dlgAlert.setMessage(value);
+        dlgAlert.show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_main);
 

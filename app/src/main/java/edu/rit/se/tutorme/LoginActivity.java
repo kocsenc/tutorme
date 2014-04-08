@@ -152,6 +152,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
             Intent i = new Intent(this, TutorMainActivity.class);
+            i.putExtra("Username", password);
             startActivity(i);
         }
     }
