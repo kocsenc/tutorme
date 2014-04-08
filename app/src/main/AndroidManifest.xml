@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TutorMainActivity" android:label="@string/title_activity_tutor_main"></activity>
+       <!-- <activity android:name=".edit_tutor_page" android:label="@string/title_ac"-->
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->

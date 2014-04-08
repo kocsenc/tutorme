@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -37,6 +38,7 @@ public class TutorMainActivity extends Activity implements ActionBar.TabListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Intent myIntent = getIntent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_main);
 
@@ -74,6 +76,10 @@ public class TutorMainActivity extends Activity implements ActionBar.TabListener
                             .setTabListener(this)
             );
         }
+    }
+
+    public void editProfile(View v){
+
     }
 
 
