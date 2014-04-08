@@ -148,7 +148,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="114dp"
                         android:id="@+id/listView"
-                        android:entries="3"
                         android:drawSelectorOnTop="false"
                         android:textFilterEnabled="false"
                         android:fastScrollAlwaysVisible="false"
