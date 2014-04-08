@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.rit.se.tutorme.SearchTutors"
+            android:name=".SearchTutorsActivity"
             android:label="@string/title_activity_search_tutors">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

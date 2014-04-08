@@ -1,6 +1,6 @@
 package edu.rit.se.tutorme;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 
-public class SearchTutors extends Activity {
+public class SearchTutorsActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
