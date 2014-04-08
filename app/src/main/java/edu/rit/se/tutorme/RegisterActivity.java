@@ -4,13 +4,28 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 
 public class RegisterActivity extends Activity {
+
+    private AutoCompleteTextView mEmailView;
+    private EditText mLNameView;
+    private EditText mFNameView;
+    private EditText mZipCodeView;
+    private EditText mPasswordRetype;
+    private EditText mPasswordView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+    }
+
+    public void attemptLogin() {
+
+        
     }
 
 
@@ -34,4 +49,15 @@ public class RegisterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private boolean isEmailValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.contains("@");
+
+    }
+
+    private boolean isPasswordValid(String password, String passwordTwo) {
+        //TODO: Replace this with your own logic
+        return password.length() > 4 && password == passwordTwo;
+    }
 }
