@@ -8,6 +8,7 @@
     <string name="title_section2">Requests</string>
     <string name="title_section3">Messages</string>
     <string name="signinicon">sign_in_icon</string>
+    <string name="title_activity_tutor_profile">TutorProfileActivity</string>
     <string name="search_hint">Search tutors</string>
     <string name="title_activity_search_tutors">SearchTutors</string>
     <string name="hello_world">Hello world!</string>
