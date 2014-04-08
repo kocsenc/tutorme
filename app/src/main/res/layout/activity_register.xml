@@ -29,7 +29,7 @@
         android:focusable="false"
         android:baselineAligned="false"
         android:weightSum="1"
-        android:gravity="center_vertical|center_horizontal">
+        android:gravity="center_horizontal">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -123,33 +123,29 @@
             android:textColor="@color/light_gray"
             android:textColorHint="@color/gray" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignBottom="@+id/icon_signin"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="60dp"
-            android:gravity="left"
-            android:baselineAligned="false">
+            android:orientation="horizontal"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:longClickable="false"
+            android:gravity="center_horizontal|bottom">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Student"
-                android:id="@+id/radioButton"
-                android:layout_above="@+id/register_form"
-
-                />
+                android:text="@string/student_button"
+                android:id="@+id/radioButtonTeacher"
+                android:gravity="center_horizontal|bottom" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Teacher"
-                android:id="@+id/radioButton"
-                android:layout_above="@+id/register_form" />
-
-        </LinearLayout>
+                android:text="@string/teacher_button"
+                android:id="@+id/radioButtonTeacher"
+                android:gravity="center_horizontal|bottom" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/register_button"
