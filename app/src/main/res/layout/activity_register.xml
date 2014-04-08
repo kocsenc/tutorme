@@ -44,7 +44,9 @@
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/signinicon"
                 android:visibility="visible"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:layout_alignParentTop="true"
+                android:layout_alignWithParentIfMissing="false" />
 
         </RelativeLayout>
 
@@ -136,15 +138,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/student_button"
-                android:id="@+id/radioButtonTeacher"
-                android:gravity="center_horizontal|bottom" />
+                android:id="@+id/radioButtonStudent" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teacher_button"
-                android:id="@+id/radioButtonTeacher"
-                android:gravity="center_horizontal|bottom" />
+                android:id="@+id/radioButtonTeacher" />
         </RadioGroup>
 
         <Button
