@@ -153,7 +153,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask.execute((Void) null);
             Intent i = new Intent(this, TutorMainActivity.class);
             startActivity(i);
-            //finish();
         }
     }
 

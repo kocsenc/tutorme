@@ -79,7 +79,8 @@ public class TutorMainActivity extends Activity implements ActionBar.TabListener
     }
 
     public void editProfile(View v){
-
+        Intent i = new Intent(this, EditTutorPageActivity.class);
+        startActivity(i);
     }
 
 

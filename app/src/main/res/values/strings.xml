@@ -4,7 +4,7 @@
     <string name="app_name">TutorMe</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tutor_main">TutorMainActivity</string>
-
+    <string name="title_activity_edit_tutor_page">EditTutorPage</string>
     <string name="title_section1">My Profile</string>
     <string name="title_section2">Requests</string>
     <string name="title_section3">Messages</string>
