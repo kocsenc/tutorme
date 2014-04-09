@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.rit.se.tutorme.api.TutorMeUser;
+
 
 public class TutorProfileActivity extends Activity {
 
@@ -23,7 +27,11 @@ public class TutorProfileActivity extends Activity {
 
 
         Intent myIntent = getIntent();
-        //String email = myIntent.getStringArrayExtra("Email").toString();
+        Bundle userinfo = myIntent.getExtras();
+        TutorMeUser user = (TutorMeUser) userinfo.getParcelable("userInfo");
+        TextView name = (TextView) findViewById(R.id.UserNameField);
+        name.setText(user.getName());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
 
@@ -80,6 +88,7 @@ public class TutorProfileActivity extends Activity {
         EditText bioField = (EditText) findViewById(R.id.BioField);
         bioField.setTextIsSelectable(true);
         bioField.setEnabled(true);
+        bioField.setBackground();
 
 
         //Start animation
