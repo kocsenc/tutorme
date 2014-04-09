@@ -32,8 +32,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".TutorMainActivity" android:label="@string/title_activity_tutor_main"></activity>
-        <activity android:name=".EditTutorPageActivity" android:label="@string/title_activity_edit_tutor_page"></activity>
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->

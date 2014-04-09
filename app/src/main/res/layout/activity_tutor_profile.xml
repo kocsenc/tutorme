@@ -49,8 +49,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Craig Cabrelieghlang"
-                            android:id="@+id/textView8"
+                            android:text="Crug Crabby"
+                            android:id="@+id/UsernameField"
                             android:textSize="25dp" />
 
                         <TextView
@@ -82,18 +82,23 @@
                     android:layout_gravity="top">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Bio"
                         android:id="@+id/textView" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
                         android:text="I am a super duper tutor and I love my friends! I have worked in a variety of early childhood educations ettings and I specialize in infants and toddler. I have 4 children of my own (twins!) and I love to play with childern"
-                        android:id="@+id/textView2"
-                        android:paddingStart="15dp" />
+                        android:id="@+id/BioField"
+                        android:paddingStart="15dp"
+                        android:enabled="false"
+                        android:editable="false"
+                        android:textColor="@color/light_black"/>
                 </LinearLayout>
             </TableRow>
 
@@ -119,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView4"
+                        android:id="@+id/GradeLevelField"
                         android:text="6-12"
                         android:paddingStart="15dp" />
                 </LinearLayout>
@@ -162,11 +167,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Edit"
-            android:id="@+id/button"
+            android:id="@+id/edit_button"
             android:background="@color/red"
             android:clickable="true"
-            android:enabled="false"
-            android:textColor="@color/gray" />
+            android:enabled="true"
+            android:textColor="#FFFFFF" />
 
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/save_button"
+            android:background="@color/red"
+            android:clickable="true"
+            android:enabled="true"
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 </RelativeLayout>
