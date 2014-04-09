@@ -25,7 +25,7 @@ public class RegisterActivity extends Activity {
 
     public void attemptLogin() {
 
-        
+
     }
 
 
