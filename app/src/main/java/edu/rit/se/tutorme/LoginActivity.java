@@ -36,6 +36,7 @@ import java.util.List;
 
 import edu.rit.se.tutorme.api.TutorMeAPI;
 import edu.rit.se.tutorme.api.TutorMeUser;
+import edu.rit.se.tutorme.api.UserType;
 
 
 /**
@@ -258,11 +259,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private void onSuccessLogin(TutorMeUser loginUser) {
-        Intent tutorIntent = new Intent(this, TutorProfileActivity.class);
-        startActivity(tutorIntent);
-
-
+        UserType type = loginUser.getUserType();
+        Intent intent;
+        if (type.equals(UserType.Tutor)) {
+            intent = new Intent(this, TutorProfileActivity.class);
+            intent.putExtra("userInfo", loginUser);
+        } else {
+            //TODO: Once we have a Student profile activity, put here!
+            //intent = new Intent(this, TutorProfileActivity.class);
+            intent = null;
+        }
+        startActivity(intent);
     }
+
 
     /**
      * Represents an asynchronous login/registration task used to authenticate

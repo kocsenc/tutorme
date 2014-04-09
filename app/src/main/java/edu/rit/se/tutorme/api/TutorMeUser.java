@@ -1,12 +1,15 @@
 package edu.rit.se.tutorme.api;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * @author Craig Cabrey <craigcabrey@gmail.com>
  */
-public class TutorMeUser {
+public class TutorMeUser implements Parcelable {
 
     private UserType userType;
     private String name;
@@ -36,5 +39,15 @@ public class TutorMeUser {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeArray(new String[] {this.name, this.email});
     }
 }
