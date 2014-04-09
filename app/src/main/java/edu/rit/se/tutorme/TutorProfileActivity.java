@@ -27,6 +27,10 @@ public class TutorProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
 
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.setEnabled(false);
+        bioField.setTextIsSelectable(false);
+
         //Hide save button, give it functionality
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setVisibility(View.GONE);
@@ -72,6 +76,11 @@ public class TutorProfileActivity extends Activity {
 
     //Changes 'edit' button to 'save' button
     public void editProfile(View v){
+
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.setTextIsSelectable(true);
+        bioField.setEnabled(true);
+
 
         //Start animation
         final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.translate);
