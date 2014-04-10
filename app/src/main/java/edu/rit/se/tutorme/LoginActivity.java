@@ -263,7 +263,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         Intent intent;
         if (type.equals(UserType.Tutor)) {
             intent = new Intent(this, TutorProfileActivity.class);
-            intent.putExtra("userInfo", loginUser);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
         } else {
             //TODO: Once we have a Student profile activity, put here!
             //intent = new Intent(this, TutorProfileActivity.class);
