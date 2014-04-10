@@ -34,6 +34,7 @@ import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.UserType;
+import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -150,7 +151,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
@@ -224,17 +225,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
@@ -253,13 +243,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             intent.putExtra("userEmail", loginUser.getEmail());
             intent.putExtra("userType", loginUser.getUserType());
         } else {
-            //TODO: Once we have a Student profile activity, put here!
-            //intent = new Intent(this, TutorProfileActivity.class);
-            intent = null;
+            intent = new Intent(this, StudentHomeActivity.class);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
         }
         startActivity(intent);
     }
 
+    private interface ProfileQuery {
+        String[] PROJECTION = {
+                ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
+        };
+
+        int ADDRESS = 0;
+        int IS_PRIMARY = 1;
+    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
