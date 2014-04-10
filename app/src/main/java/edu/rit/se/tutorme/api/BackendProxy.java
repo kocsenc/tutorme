@@ -152,7 +152,27 @@ public class BackendProxy implements BackendInterface {
      */
     @Override
     public boolean updateUser(TutorMeUser user) throws TokenMismatchException {
-        return false;
+        JSONObject userRequestBody = new JSONObject();
+
+        try {
+            userRequestBody.put("email", BackendProxy.email);
+            userRequestBody.put("token", BackendProxy.token);
+
+            String rawResponse = httpRequest.sendJSONPost(this.uri + "/users/update", userRequestBody);
+            JSONObject response = new JSONObject(rawResponse);
+
+            if (response.get("status").equals("success")) {
+                return true;
+            } else {
+                if (response.get("message").equals("token mismatch")) {
+                    throw new TokenMismatchException(BackendProxy.token);
+                }
+
+                return false;
+            }
+        } catch (JSONException e) {
+            throw new TokenMismatchException(BackendProxy.token);
+        }
     }
 
     /**
@@ -200,7 +220,27 @@ public class BackendProxy implements BackendInterface {
      */
     @Override
     public TutorMeProfile getProfile(String email) throws InvalidParametersException, TokenMismatchException {
-        return null;
+        try {
+            JSONObject getProfileRequestBody = new JSONObject();
+
+            getProfileRequestBody.put("email", BackendProxy.email);
+            getProfileRequestBody.put("token", BackendProxy.token);
+
+            String rawResponse = httpRequest.sendGet(this.uri + "/profiles/" + email);
+            JSONObject response = new JSONObject(rawResponse);
+
+            if (response.get("status").equals("success")) {
+                return new TutorMeProfile((JSONObject) response.get("profile"));
+            } else {
+                if (response.get("message").equals("user is not a tutor")) {
+                    throw new InvalidParametersException(response.getString("message"));
+                } else {
+                    throw new TokenMismatchException(response.getString("message"));
+                }
+            }
+        } catch (JSONException e) {
+            throw new InvalidParametersException(e.getMessage());
+        }
     }
 
     /**
@@ -236,9 +276,7 @@ public class BackendProxy implements BackendInterface {
                 throw new TokenMismatchException((String) response.get("message"));
             }
 
-            //TODO Some sort of error message if no results found
             return results;
-
         } catch (JSONException e) {
             return null;
         }
