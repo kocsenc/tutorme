@@ -28,11 +28,6 @@ public class TutorProfileActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent myIntent = getIntent();
-
-        Bundle userInfo = myIntent.getExtras();
-        setupUserInfo(userInfo);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
 
@@ -71,6 +66,9 @@ public class TutorProfileActivity extends Activity {
             }
         });
 
+        Intent myIntent = getIntent();
+        Bundle userInfo = myIntent.getExtras();
+        setupUserInfo(userInfo);
 
     }
 
