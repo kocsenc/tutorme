@@ -33,7 +33,7 @@ import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
-
+import edu.rit.se.tutorme.api.UserType;
 
 /**
  * A login screen that offers login via email/password.
@@ -255,11 +255,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private void onSuccessLogin(TutorMeUser loginUser) {
-        Intent tutorIntent = new Intent(this, TutorProfileActivity.class);
-        startActivity(tutorIntent);
-
-
+        UserType type = loginUser.getUserType();
+        Intent intent;
+        if (type.equals(UserType.Tutor)) {
+            intent = new Intent(this, TutorProfileActivity.class);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
+        } else {
+            //TODO: Once we have a Student profile activity, put here!
+            //intent = new Intent(this, TutorProfileActivity.class);
+            intent = null;
+        }
+        startActivity(intent);
     }
+
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
