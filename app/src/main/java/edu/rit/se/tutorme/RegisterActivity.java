@@ -21,10 +21,73 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mZipCodeView = (EditText) findViewById(R.id.zipcode);
+        mFNameView = (EditText) findViewById(R.id.prompt_fname);
+        mLNameView = (EditText) findViewById(R.id.prompt_lname);
+        mPasswordRetype = (EditText) findViewById(R.id.password_retype);
+        mPasswordView = (EditText) findViewById(R.id.password);
+
+
     }
 
-    public void attemptLogin() {
+    public void attemptRegister() {
 
+        if (!validateinput()) {
+            return;
+        }
+
+
+    }
+
+
+    private boolean validateinput() {
+        if (isEmailValid(mEmailView.toString())) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+
+            mEmailView.setText("");
+
+            mEmailView.requestFocus();
+            return false;
+
+        } else if (isLastNameValid(mLNameView.toString())) {
+            mLNameView.setError(getString(R.string.error_no_name));
+
+            mLNameView.setText("");
+
+            mLNameView.requestFocus();
+            return false;
+
+        } else if (isFirstNameValid(mFNameView.toString())) {
+            mFNameView.setError(getString(R.string.error_no_name));
+
+            mFNameView.setText("");
+
+            mFNameView.requestFocus();
+            return false;
+
+        } else if (isPasswordValid(mPasswordView.toString())) {
+            mPasswordView.setError(getString(R.string.error_invalid_password_register));
+
+            mPasswordView.setText("");
+            mPasswordRetype.setText("");
+
+            mPasswordView.requestFocus();
+            return false;
+
+        } else if (isPasswordCorrect(mPasswordView.toString(), mPasswordRetype.toString())) {
+            mPasswordView.setError(getString(R.string.error_password_match));
+
+            mPasswordView.setText("");
+            mPasswordRetype.setText("");
+
+            mPasswordView.requestFocus();
+
+            return false;
+        } else {
+            return true;
+        }
 
     }
 
@@ -33,7 +96,6 @@ public class RegisterActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.register, menu);
         return true;
     }
 
@@ -51,13 +113,23 @@ public class RegisterActivity extends Activity {
 
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
 
     }
 
-    private boolean isPasswordValid(String password, String passwordTwo) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4 && password == passwordTwo;
+    private boolean isPasswordValid(String password) {
+        return password.length() > 3;
+    }
+
+    private boolean isPasswordCorrect(String password, String passwordTwo) {
+        return password.equals(passwordTwo);
+    }
+
+    private boolean isFirstNameValid(String fname) {
+        return fname.length() > 0;
+    }
+
+    private boolean isLastNameValid(String lname) {
+        return lname.length() > 0;
     }
 }
