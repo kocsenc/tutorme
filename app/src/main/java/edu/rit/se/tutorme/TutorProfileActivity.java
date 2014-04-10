@@ -38,11 +38,11 @@ public class TutorProfileActivity extends Activity {
 
         //Hide editGradeButton, give it functionality
         Button gradeButton = (Button) findViewById(R.id.editGradeButton);
-        gradeButton.setVisibility(View.GONE);
+        //gradeButton.setVisibility(View.GONE);
         gradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //editGrades();
+                editGrades(findViewById(R.id.editGradeButton));
             }
         });
 
@@ -198,11 +198,11 @@ public class TutorProfileActivity extends Activity {
         TextView nameField = (TextView) findViewById(R.id.UserNameField);
         nameField.setText(name);
     }
-/*
-    public  void editGrades() {
-        PopupWindow PW = new PopupWindow();;
 
+    public void editGrades(View v) {
+        PopupWindow PW = new PopupWindow(100, 100);
+        PW.showAtLocation(v, 10, 1, 1);
     }
-    */
+
 
 }
