@@ -1,7 +1,10 @@
 package edu.rit.se.tutorme.api;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * @author Craig Cabrey <craigcabrey@gmail.com>
@@ -109,5 +112,40 @@ public class TutorMeAPI {
         }
 
         return false;
+    }
+
+    /**
+     * Search User API call
+     *
+     * @param query - the search criteria
+     * @return - a list of users found
+     */
+    public ArrayList<TutorMeUser> searchUsers(String query) {
+        JSONObject searchBody = new JSONObject();
+
+        try {
+            searchBody.put("query", query);
+
+            String rawResponse = httpRequest.sendJSONPost(this.url + "/profiles/search", searchBody);
+            JSONObject response = new JSONObject(rawResponse);
+            ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
+
+            if (response.get("status").equals("success")) {
+
+                JSONArray array = response.getJSONArray("results");
+
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                    TutorMeUser user = new TutorMeUser(object);
+                    results.add(user);
+                }
+            }
+
+            //TODO Some sort of error message if no results found
+            return results;
+
+        } catch (JSONException e) {
+            return null;
+        }
     }
 }

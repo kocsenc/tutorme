@@ -19,8 +19,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import edu.rit.se.tutorme.api.TutorMeUser;
-
 
 public class TutorProfileActivity extends Activity {
     String tutorName;
@@ -78,6 +76,7 @@ public class TutorProfileActivity extends Activity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
+        getMenuInflater().inflate(R.menu.tutor_main, menu);
         return true;
     }
 
