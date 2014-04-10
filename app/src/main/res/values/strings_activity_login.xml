@@ -1,5 +1,5 @@
 <resources>
-    <string name="title_activity_login">Tutorme</string>
+    <string name="title_activity_login">TutorMe</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
