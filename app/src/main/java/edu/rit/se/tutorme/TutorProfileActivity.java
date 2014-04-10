@@ -29,10 +29,10 @@ public class TutorProfileActivity extends Activity {
 
 
         Intent myIntent = getIntent();
-        Bundle userinfo = myIntent.getExtras();
-        TutorMeUser user = (TutorMeUser) userinfo.getParcelable("userInfo");
-        TextView name = (TextView) findViewById(R.id.UserNameField);
-        name.setText(user.getName());
+        //  Bundle userinfo = myIntent.getExtras();
+        //TutorMeUser user = (TutorMeUser) userinfo.getParcelable("userInfo");
+        //TextView name = (TextView) findViewById(R.id.UserNameField);
+        // name.setText(user.getName());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
@@ -44,11 +44,11 @@ public class TutorProfileActivity extends Activity {
 
         //Hide editGradeButton, give it functionality
         Button gradeButton = (Button) findViewById(R.id.editGradeButton);
-        gradeButton.setVisibility(View.GONE);
+        //gradeButton.setVisibility(View.GONE);
         gradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //editGrades();
+                editGrades(findViewById(R.id.editGradeButton));
             }
         });
 
@@ -189,11 +189,12 @@ public class TutorProfileActivity extends Activity {
         // Showing Alert Message
         alertDialog.show();
     }
-/*
-    public  void editGrades() {
-        PopupWindow PW = new PopupWindow();;
+
+    public void editGrades(View v) {
+        PopupWindow PW = new PopupWindow(100, 100);
+        PW.showAtLocation(v, 10, 1, 1);
 
     }
-    */
+
 
 }
