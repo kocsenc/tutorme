@@ -2,6 +2,7 @@ package edu.rit.se.tutorme.api;
 
 import java.util.ArrayList;
 
+import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
@@ -19,13 +20,13 @@ public interface BackendInterface {
      * @param user User object to be registered.
      * @return true if successful, false otherwise.
      */
-    public boolean register(TutorMeUser user);
+    public boolean register(TutorMeUser user) throws APIResponseException;
 
     /**
      * Method to authenticate a user.
      * @param email
      * @param password
-     * @return
+     * @return TutorMeUser object of the user just logged in.
      */
     public TutorMeUser login(String email, String password) throws AuthenticationException;
 
@@ -33,7 +34,7 @@ public interface BackendInterface {
      * Method to destroy a user's current session.
      * @return true if successful, false otherwise.
      */
-    public boolean logout();
+    public boolean logout() throws APIResponseException;
 
     /**
      * Method to update a user's information.
