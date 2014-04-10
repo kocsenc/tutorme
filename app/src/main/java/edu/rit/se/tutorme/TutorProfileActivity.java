@@ -53,12 +53,10 @@ public class TutorProfileActivity extends Activity {
         });
 
 
-
-
         //Hide save button, give it functionality
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setVisibility(View.GONE);
-        saveButton.setOnClickListener(new View.OnClickListener(){
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveDialogue();
@@ -80,7 +78,7 @@ public class TutorProfileActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
         return true;
@@ -99,7 +97,7 @@ public class TutorProfileActivity extends Activity {
     }
 
     //Changes 'edit' button to 'save' button
-    public void editProfile(View v){
+    public void editProfile(View v) {
 
         EditText bioField = (EditText) findViewById(R.id.BioField);
         bioField.setTextIsSelectable(true);
@@ -123,7 +121,7 @@ public class TutorProfileActivity extends Activity {
         saveButton.setVisibility(View.VISIBLE);
     }
 
-    public void saveDialogue(){
+    public void saveDialogue() {
         //TODO: Actual logic for editing profile
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
