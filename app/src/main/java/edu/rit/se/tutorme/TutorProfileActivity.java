@@ -23,16 +23,15 @@ import edu.rit.se.tutorme.api.TutorMeUser;
 
 
 public class TutorProfileActivity extends Activity {
+    String tutorName;
+    String tutorEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         Intent myIntent = getIntent();
-        Bundle userinfo = myIntent.getExtras();
-        TutorMeUser user = (TutorMeUser) userinfo.getParcelable("userInfo");
-        TextView name = (TextView) findViewById(R.id.UserNameField);
-        name.setText(user.getName());
+
+        Bundle userInfo = myIntent.getExtras();
+        setupUserInfo(userInfo);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
@@ -186,6 +185,20 @@ public class TutorProfileActivity extends Activity {
 
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    public void setupUserInfo(Bundle upUserInfo) {
+        // Getting Info
+        String name = upUserInfo.getString("userName");
+        String email = upUserInfo.getString("userEmail");
+
+        // Setting local Variables
+        this.tutorName = name;
+        this.tutorEmail = email;
+
+        // Getting fields and setting test
+        TextView nameField = (TextView) findViewById(R.id.UserNameField);
+        nameField.setText(name);
     }
 /*
     public  void editGrades() {
