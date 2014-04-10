@@ -1,11 +1,18 @@
 package edu.rit.se.tutorme;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+
+import edu.rit.se.tutorme.api.TutorMeAPI;
+import edu.rit.se.tutorme.api.TutorMeUser;
+import edu.rit.se.tutorme.api.UserType;
 
 public class RegisterActivity extends Activity {
 
@@ -30,6 +37,15 @@ public class RegisterActivity extends Activity {
         mPasswordView = (EditText) findViewById(R.id.password);
 
 
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptRegister();
+            }
+        });
+
+
     }
 
     public void attemptRegister() {
@@ -41,6 +57,47 @@ public class RegisterActivity extends Activity {
 
     }
 
+    public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
+
+        UserRegisterTask(String name, String zip, String email, String password, UserType user) {
+            
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            TutorMeAPI api = new TutorMeAPI();
+            TutorMeUser user = api.login(mEmail, mPassword);
+            this.user = user;
+
+            if (user == null) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                onSuccessLogin(this.user);
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
+
+
+    }
 
     private boolean validateinput() {
         if (isEmailValid(mEmailView.toString())) {
