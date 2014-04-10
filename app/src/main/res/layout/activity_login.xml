@@ -35,20 +35,23 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="119dp"
+            android:layout_height="200dp"
             android:gravity="center_vertical|center_horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/icon_signin"
                 android:src="@drawable/ic_tutorme"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/signinicon"
                 android:visibility="visible"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
                 android:layout_row="0"
-                android:layout_column="7" />
+                android:layout_column="7"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentEnd="false"
+                android:cropToPadding="false" />
         </RelativeLayout>
 
         <AutoCompleteTextView
@@ -61,7 +64,8 @@
             android:singleLine="true"
             android:textColor="@color/light_gray"
             android:textColorHint="@color/gray"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:paddingTop="20dp" />
 
         <EditText
             android:id="@+id/password"
