@@ -32,7 +32,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="edu.rit.se.tutorme.StudentHomeActivity"
+            android:name=".student.StudentHomeActivity"
             android:label="@string/title_activity_student_home"></activity>
     </application>
 

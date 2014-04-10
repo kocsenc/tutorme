@@ -1,9 +1,11 @@
-package edu.rit.se.tutorme;
+package edu.rit.se.tutorme.student;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import edu.rit.se.tutorme.R;
 
 
 public class StudentHomeActivity extends Activity {
