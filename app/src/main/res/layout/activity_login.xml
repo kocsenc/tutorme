@@ -3,12 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/red"
-    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.rit.se.tutorme.LoginActivity">
 
     <!-- Login progress -->
@@ -26,88 +21,131 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView" >
+        android:id="@+id/scrollView"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:baselineAligned="false"
             android:focusable="false"
-            android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical"
-            android:weightSum="1" >
+            android:weightSum="1">
 
-            <RelativeLayout
+            <TableLayout
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:gravity="center_vertical|center_horizontal" >
+                android:layout_height="fill_parent"
+                android:shrinkColumns="*"
+                android:layout_marginBottom="40dp">
 
-                <ImageView
-                    android:id="@+id/icon_signin"
+                <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_alignParentEnd="false"
-                    android:layout_alignParentStart="false"
-                    android:layout_column="7"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_row="0"
-                    android:contentDescription="@string/signinicon"
-                    android:cropToPadding="false"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_tutorme"
-                    android:visibility="visible" />
-            </RelativeLayout>
+                    android:layout_marginTop="50dp">
 
-            <AutoCompleteTextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:paddingTop="30dp"
-                android:singleLine="true"
-                android:textColor="@color/light_gray"
-                android:textColorHint="@color/gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:gravity="bottom|top">
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/prompt_password"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/light_gray"
-                android:textColorHint="@color/gray" />
+                        <ImageView
+                            android:id="@+id/icon_signin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_alignParentEnd="false"
+                            android:layout_alignParentStart="false"
+                            android:layout_gravity="center_horizontal"
+                            android:contentDescription="@string/signinicon"
+                            android:cropToPadding="false"
+                            android:scaleType="fitCenter"
+                            android:visibility="visible"
+                            android:src="@drawable/logo"
+                            android:layout_alignParentBottom="false" />
+                    </RelativeLayout>
+                </TableRow>
 
-            <Button
-                style="?android:textAppearanceSmall"
-                android:id="@+id/email_sign_in_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/light_black"
-                android:clickable="true"
-                android:text="@string/action_sign_in"
-                android:textColor="@color/gray"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@+id/register_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="@string/action_register"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/light_gray" />
+                    <AutoCompleteTextView
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray"
+                        android:textColorHint="@color/gray"
+                        android:nextFocusDown="@+id/password"
+                        android:layout_gravity="bottom" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_password"
+                        android:imeActionId="@+id/login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray"
+                        android:textColorHint="@color/gray"
+                        android:layout_gravity="bottom" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        style="?android:textAppearanceSmall"
+                        android:id="@+id/email_sign_in_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/light_black"
+                        android:clickable="true"
+                        android:text="@string/action_sign_in"
+                        android:textColor="@color/gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_weight="0"
+                        android:layout_gravity="bottom" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:baselineAligned="false"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:id="@+id/register_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/action_register"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/light_gray"
+                        android:layout_gravity="center_horizontal|bottom" />
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
 
