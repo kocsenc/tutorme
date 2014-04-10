@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -14,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +37,23 @@ public class TutorProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
 
+        //Set bioField to be uneditable
         EditText bioField = (EditText) findViewById(R.id.BioField);
         bioField.setEnabled(false);
         bioField.setTextIsSelectable(false);
+
+        //Hide editGradeButton, give it functionality
+        Button gradeButton = (Button) findViewById(R.id.editGradeButton);
+        gradeButton.setVisibility(View.GONE);
+        gradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //editGrades();
+            }
+        });
+
+
+
 
         //Hide save button, give it functionality
         Button saveButton = (Button) findViewById(R.id.save_button);
@@ -88,7 +104,8 @@ public class TutorProfileActivity extends Activity {
         EditText bioField = (EditText) findViewById(R.id.BioField);
         bioField.setTextIsSelectable(true);
         bioField.setEnabled(true);
-        bioField.setBackground();
+        ColorDrawable c = new ColorDrawable(R.color.black);
+        bioField.setBackground(c);
 
 
         //Start animation
@@ -172,5 +189,11 @@ public class TutorProfileActivity extends Activity {
         // Showing Alert Message
         alertDialog.show();
     }
+/*
+    public  void editGrades() {
+        PopupWindow PW = new PopupWindow();;
+
+    }
+    */
 
 }

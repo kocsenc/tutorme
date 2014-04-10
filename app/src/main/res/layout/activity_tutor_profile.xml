@@ -119,12 +119,28 @@
                         android:text="Grade Levels"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                    <TextView
-                        android:id="@+id/GradeLevelField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="15dp"
-                        android:text="6-12" />
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:id="@+id/GradeLevelField"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="15dp"
+                            android:text="6-12" />
+
+                        <Button
+                            android:id="@+id/editGradeButton"
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/red"
+                            android:text="Edit"
+                            android:textColor="#FFFFFF" />
+
+                    </RelativeLayout>
                 </LinearLayout>
             </TableRow>
 
