@@ -128,18 +128,24 @@ public class TutorMeAPI {
 
             String rawResponse = httpRequest.sendJSONPost(this.url + "/profiles/search", searchBody);
             JSONObject response = new JSONObject(rawResponse);
+            ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
 
             if (response.get("status").equals("success")) {
-                ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
+
                 JSONArray array = response.getJSONArray("results");
 
                 for (int i = 0; i < array.length(); i++) {
-
+                    JSONObject object = array.getJSONObject(i);
+                    TutorMeUser user = new TutorMeUser(object);
+                    results.add(user);
                 }
             }
-        } catch (JSONException e) {
-        }
 
-        return null;
+            //TODO Some sort of error message if no results found
+            return results;
+
+        } catch (JSONException e) {
+            return null;
+        }
     }
 }

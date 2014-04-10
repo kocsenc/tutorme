@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -55,6 +53,7 @@ public class TutorProfileActivity extends Activity {
         
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
+        getMenuInflater().inflate(R.menu.tutor_main, menu);
         return true;
     }
 

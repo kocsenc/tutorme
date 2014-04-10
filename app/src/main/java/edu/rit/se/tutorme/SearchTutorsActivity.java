@@ -7,15 +7,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+
+import java.util.ArrayList;
+
+import edu.rit.se.tutorme.api.TutorMeAPI;
+import edu.rit.se.tutorme.api.TutorMeUser;
 
 
 public class SearchTutorsActivity extends ListActivity {
+
+    ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
+    ArrayAdapter<TutorMeUser> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_tutors);
+        adapter = new ArrayAdapter<TutorMeUser>(this, android.R.layout.simple_list_item_1, results);
+        setListAdapter(adapter);
 
         handleIntent(getIntent());
     }
@@ -30,6 +41,9 @@ public class SearchTutorsActivity extends ListActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
             //TODO: Perform search
+            TutorMeAPI api = new TutorMeAPI();
+            results = api.searchUsers(query);
+            adapter.notifyDataSetChanged();
         }
     }
 
