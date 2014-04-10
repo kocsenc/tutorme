@@ -143,26 +143,61 @@ public class BackendProxy implements BackendInterface {
         }
     }
 
+    /**
+     * Method to update a user's information.
+     * @param user User object with updated information.
+     * @return true if successful, false otherwise.
+     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
+     * server side.
+     */
     @Override
     public boolean updateUser(TutorMeUser user) throws TokenMismatchException {
         return false;
     }
 
+    /**
+     * Method to remove a user's account.
+     * @param user User to be removed.
+     * @return true if successful, false otherwise.
+     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
+     * server side.
+     */
     @Override
     public boolean deleteUser(TutorMeUser user) throws TokenMismatchException {
         return false;
     }
 
+    /**
+     * Method to get the list of newest messages.
+     * @return List of new TutorMeMessages.
+     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
+     * server side.
+     */
     @Override
     public ArrayList<TutorMeMessage> getMessages() throws TokenMismatchException {
         return null;
     }
 
+    /**
+     * Method to send a message to a user.
+     * @param message Message to be sent
+     * @return true if successful, false otherwise.
+     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
+     * server side.
+     */
     @Override
     public boolean sendMessage(TutorMeMessage message) throws TokenMismatchException {
         return false;
     }
 
+    /**
+     * Method to fetch a tutor profile.
+     * @param email Email of the profile to be get.
+     * @return TutorMeProfile object received from server.
+     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
+     * server side.
+     * @throws InvalidParametersException Thrown if no such profile (or user is a student) exists.
+     */
     @Override
     public TutorMeProfile getProfile(String email) throws InvalidParametersException, TokenMismatchException {
         return null;

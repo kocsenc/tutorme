@@ -12,9 +12,10 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-import edu.rit.se.tutorme.api.TutorMeAPI;
+import edu.rit.se.tutorme.api.BackendInterface;
+import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
-
+import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 
 public class SearchTutorsActivity extends ListActivity {
 
@@ -41,12 +42,15 @@ public class SearchTutorsActivity extends ListActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
             //TODO: Perform search
-            TutorMeAPI api = new TutorMeAPI();
-            results = api.searchUsers(query);
+            BackendInterface api = new BackendProxy();
+            try {
+                results = api.search(query);
+            } catch (TokenMismatchException e) {
+                e.printStackTrace();
+            }
             adapter.notifyDataSetChanged();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,5 +76,4 @@ public class SearchTutorsActivity extends ListActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -15,9 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,14 +26,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.rit.se.tutorme.api.TutorMeAPI;
+import edu.rit.se.tutorme.api.BackendInterface;
+import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
+import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 
 
 /**
@@ -280,14 +277,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            TutorMeAPI api = new TutorMeAPI();
-            TutorMeUser user = api.login(mEmail, mPassword);
-            this.user = user;
+            BackendInterface api = new BackendProxy();
 
-            if (user == null) {
-                return false;
-            } else {
+            try {
+                this.user = api.login(mEmail, mPassword);
                 return true;
+            } catch (AuthenticationException e) {
+                return false;
             }
         }
 
