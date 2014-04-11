@@ -61,6 +61,7 @@ public class TutorMeUser {
 
     /**
      * Getter for userType.
+     *
      * @return the userType
      */
     public UserType getUserType() {

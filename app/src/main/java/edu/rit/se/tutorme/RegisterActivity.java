@@ -21,7 +21,7 @@ import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.UserType;
-import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
+import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 public class RegisterActivity extends Activity {
@@ -125,7 +125,8 @@ public class RegisterActivity extends Activity {
         BackendInterface api;
 
         UserRegisterTask(String name, String zip, String email, String password, UserType user) {
-            newUser = new TutorMeUser(newUser, mPassword);
+            newUser = new TutorMeUser(user, name, email, zip);
+            mPassword = password;
             api = new BackendProxy();
 
 
@@ -134,15 +135,11 @@ public class RegisterActivity extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                api. (newUser, mPassword);
+                api.register(newUser, mPassword);
+
                 return true;
-            } catch (AuthenticationException e) {
+            } catch (APIResponseException e) {
                 return false;
-            }
-            if (newUser == null) {
-                return false;
-            } else {
-                return true;
             }
         }
 
@@ -155,8 +152,7 @@ public class RegisterActivity extends Activity {
                 onSuccessRegister(this.newUser);
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                finish();
             }
         }
 
@@ -169,19 +165,19 @@ public class RegisterActivity extends Activity {
 
     }
 
-    private void onSuccessRegister(TutorMeUser loginUser) {
-        UserType type = loginUser.getUserType();
+    private void onSuccessRegister(TutorMeUser registerUser) {
+        UserType type = registerUser.getUserType();
         Intent intent;
         if (type.equals(UserType.Tutor)) {
             intent = new Intent(this, TutorProfileActivity.class);
-            intent.putExtra("userName", loginUser.getName());
-            intent.putExtra("userEmail", loginUser.getEmail());
-            intent.putExtra("userType", loginUser.getUserType());
+            intent.putExtra("userName", registerUser.getName());
+            intent.putExtra("userEmail", registerUser.getEmail());
+            intent.putExtra("userType", registerUser.getUserType());
         } else {
             intent = new Intent(this, StudentHomeActivity.class);
-            intent.putExtra("userName", loginUser.getName());
-            intent.putExtra("userEmail", loginUser.getEmail());
-            intent.putExtra("userType", loginUser.getUserType());
+            intent.putExtra("userName", registerUser.getName());
+            intent.putExtra("userEmail", registerUser.getEmail());
+            intent.putExtra("userType", registerUser.getUserType());
         }
         startActivity(intent);
     }
