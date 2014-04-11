@@ -234,6 +234,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mEmailView.setAdapter(adapter);
     }
 
+    /**
+     * This is the method that is run if there was no client side errors when logging in.
+     * AKA, if the email is valid and the password meets requirement length and the actual backend
+     * returns success signal, this method executes.
+     *
+     * When executing it will check if the user is a tutor or a student and make appropriate intents.
+     * Additionally any info that the intents may need is set.
+     */
     private void onSuccessLogin(TutorMeUser loginUser) {
         UserType type = loginUser.getUserType();
         Intent intent;
