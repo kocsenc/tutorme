@@ -28,6 +28,10 @@ import android.widget.Toast;
 public class TutorProfileActivity extends Activity {
     String tutorName;
     String tutorEmail;
+    String bioInfo;
+    ArrayList<String> subjectList;
+    ArrayList<String> gradeList;
+    ArrayList<String> dummySubjectList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class TutorProfileActivity extends Activity {
 
         //Hide editGradeButton, give it functionality
         Button gradeButton = (Button) findViewById(R.id.editGradeButton);
-        //gradeButton.setVisibility(View.GONE);
+        gradeButton.setVisibility(View.GONE);
         gradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +53,9 @@ public class TutorProfileActivity extends Activity {
             }
         });
 
+        //Hide add Subject Button
+        Button addSubjButton = (Button) findViewById(R.id.addSubjButton);
+        addSubjButton.setVisibility(View.GONE);
 
         //Hide save button, give it functionality
         Button saveButton = (Button) findViewById(R.id.save_button);
@@ -73,7 +80,6 @@ public class TutorProfileActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
         return true;
@@ -114,10 +120,14 @@ public class TutorProfileActivity extends Activity {
         bioField.setBackgroundResource(android.R.color.black);
         imm.showSoftInput(bioField, 0);
 
-
         //Hide edit button
         v.startAnimation(animTranslate);
         v.setVisibility(View.GONE);
+
+        //Show add subject button
+        Button addSubjButton = (Button) findViewById(R.id.addSubjButton);
+        addSubjButton.setVisibility(View.VISIBLE);
+
 
         //Show save button
         Button saveButton = (Button) findViewById(R.id.save_button);
@@ -172,6 +182,10 @@ public class TutorProfileActivity extends Activity {
                 bioField.setEnabled(false);
                 bioField.setBackgroundResource(android.R.color.transparent);
 
+                //Hide add subject button
+                Button addSubjButton = (Button) findViewById(R.id.addSubjButton);
+                addSubjButton.setVisibility(View.GONE);
+
                 //Perform update
                 yesAction(getTutorInfo());
 
@@ -204,6 +218,10 @@ public class TutorProfileActivity extends Activity {
                 bioField.setTextIsSelectable(false);
                 bioField.setEnabled(false);
                 bioField.setBackgroundResource(android.R.color.transparent);
+
+                //Hide add subject button
+                Button addSubjButton = (Button) findViewById(R.id.addSubjButton);
+                addSubjButton.setVisibility(View.GONE);
 
                 //Perform rollback
                 noAction(tutorInfo);
@@ -239,9 +257,23 @@ public class TutorProfileActivity extends Activity {
         this.tutorName = name;
         this.tutorEmail = email;
 
+        subjectList = new ArrayList<String>();
+        subjectList.add("butt");
+
         // Getting fields and setting test
         TextView nameField = (TextView) findViewById(R.id.UserNameField);
         nameField.setText(name);
+        Button b = (Button) findViewById(R.id.addSubjButton);
+        Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+        newSkill.setText(subjectList.get(0));
+        LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+
+        //Have the add button stay at the bottom
+        layout.removeView(findViewById(R.id.addSubjButton));
+        layout.addView(newSkill);
+        layout.addView(b);
+
+
     }
 
     //TODO: make popup work
@@ -257,8 +289,25 @@ public class TutorProfileActivity extends Activity {
      * @param oldInfo a map of all the old information on the screen
      */
     public void noAction(Map oldInfo) {
+        //Get the arraylists of old data
+        ArrayList<String> arrayBio = (ArrayList<String>) oldInfo.get(1);
+        ArrayList<String> arraySubjects = (ArrayList<String>) oldInfo.get(2);
+
+        //Add the old subjects to the list
+        LinearLayout subjects = (LinearLayout) findViewById(R.id.subjectList);
+        Button addSubjButton = (Button) findViewById(R.id.addSubjButton);
+        subjects.removeAllViews();
+        for (String subject : arraySubjects) {
+            Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+            newSkill.setText(subject);
+            LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+            layout.addView(newSkill);
+        }
+        subjects.addView(addSubjButton);
+
+        //Rollback the bio
         EditText t = (EditText) findViewById(R.id.BioField);
-        t.setText((CharSequence) oldInfo.get(1));
+        t.setText((CharSequence) arrayBio.get(0));
     }
 
     /**
@@ -268,8 +317,17 @@ public class TutorProfileActivity extends Activity {
      * @param newInfo a map of all the new information on the screen
      */
     public void yesAction(Map newInfo) {
+        //Get the arraylists of new info
+        ArrayList<String> array = (ArrayList<String>) newInfo.get(1);
+
+        //Add the new subjects to the master subject list
+        for (String subject : dummySubjectList) {
+            subjectList.add(subject);
+        }
+
+        //Update the biofield
         EditText t = (EditText) findViewById(R.id.BioField);
-        t.setText((CharSequence) newInfo.get(1));
+        t.setText((CharSequence) array.get(0));
 
     }
 
@@ -279,9 +337,18 @@ public class TutorProfileActivity extends Activity {
      * @return info a dictionary of all the info taken off screen
      */
     public Map getTutorInfo() {
-        Map<Integer, String> info = new HashMap<Integer, String>();
+        //Create a map of arraylists to hold all data
+        Map<Integer, ArrayList<String>> info = new HashMap<Integer, ArrayList<String>>();
+
+        //Grab info from screen
         EditText t = (EditText) findViewById(R.id.BioField);
-        info.put(1, t.getText().toString());
+        ArrayList<String> bioField = new ArrayList<String>();
+        bioField.add(t.getText().toString());
+
+        //Put info in Map
+        info.put(1, bioField);
+        info.put(2, subjectList);
+
         return info;
     }
 
@@ -291,7 +358,7 @@ public class TutorProfileActivity extends Activity {
      * @param v the button pressed
      */
     public void addSubject(final View v) {
-        final ArrayList<String> subjectList = new ArrayList<String>();
+        //final ArrayList<String> dummySubjectList = new ArrayList<String>();
 
         //Creates the alert dialogue
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -309,7 +376,7 @@ public class TutorProfileActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 String skill = input.getText().toString();
                 Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-                subjectList.add(skill);
+                dummySubjectList.add(skill);
                 newSkill.setText(skill);
                 LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
                 layout.removeView(v);
