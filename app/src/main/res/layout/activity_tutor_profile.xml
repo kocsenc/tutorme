@@ -205,14 +205,24 @@
                             android:layout_height="2px"
                             android:background="#90909090" />
 
-                        <ListView
-                            android:id="@+id/listView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="114dp"
-                            android:drawSelectorOnTop="false"
-                            android:fastScrollAlwaysVisible="false"
-                            android:smoothScrollbar="true"
-                            android:textFilterEnabled="false" />
+                        <LinearLayout
+                            android:id="@+id/subjectList"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/addSubjButton"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:onClick="addSubject"
+                                android:text="+"
+                                android:textColor="@color/light_gray"
+                                android:textSize="23dp" />
+                        </LinearLayout>
+
                     </LinearLayout>
                 </TableRow>
             </TableLayout>

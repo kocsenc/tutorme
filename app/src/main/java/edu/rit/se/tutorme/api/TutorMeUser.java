@@ -28,6 +28,7 @@ public class TutorMeUser {
 
     /**
      * Overloaded constructor for the TutorMeUser class.
+     *
      * @param userType type of user
      * @param name name of user
      * @param email email of user

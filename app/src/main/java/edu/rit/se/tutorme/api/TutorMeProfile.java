@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Class that represents a tutor's profile.
  *
- * @author Craig Cabrey
+ * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public class TutorMeProfile {
 

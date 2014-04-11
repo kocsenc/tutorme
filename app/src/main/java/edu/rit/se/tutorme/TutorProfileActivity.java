@@ -1,18 +1,25 @@
 package edu.rit.se.tutorme;
 
 import android.app.Activity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,12 +53,7 @@ public class TutorProfileActivity extends Activity {
         //Hide save button, give it functionality
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setVisibility(View.GONE);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveDialogue();
-            }
-        });
+
 
         //Give edit button functionality
         Button editButton = (Button) findViewById(R.id.edit_button);
@@ -74,7 +76,6 @@ public class TutorProfileActivity extends Activity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
-        getMenuInflater().inflate(R.menu.student_menu, menu);
         return true;
     }
 
@@ -90,98 +91,145 @@ public class TutorProfileActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Changes 'edit' button to 'save' button
+    /**
+     * Method call for when user clicks on the 'edit' button.
+     *
+     * @param v the View (button) that was clicked
+     */
     public void editProfile(View v) {
+        //Create map of all old info
+        final Map tutorInfo = getTutorInfo();
 
-        EditText bioField = (EditText) findViewById(R.id.BioField);
-        bioField.setTextIsSelectable(true);
-        bioField.setEnabled(true);
-        ColorDrawable c = new ColorDrawable(R.color.black);
-        bioField.setBackground(c);
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
 
-
-        //Start animation
+        //Create animations
         final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.translate);
         final Animation revTranslate = AnimationUtils.loadAnimation(this, R.anim.reverse_translate);
-        v.startAnimation(animTranslate);
+
+        //Enable Bio EditText, change color
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.clearFocus();
+        bioField.setTextIsSelectable(true);
+        bioField.setEnabled(true);
+        bioField.setBackgroundResource(android.R.color.black);
+        imm.showSoftInput(bioField, 0);
+
 
         //Hide edit button
-        Button editButton = (Button) findViewById(R.id.edit_button);
-        editButton.setVisibility(View.GONE);
+        v.startAnimation(animTranslate);
+        v.setVisibility(View.GONE);
 
         //Show save button
         Button saveButton = (Button) findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveDialogue(tutorInfo);
+            }
+        });
         saveButton.startAnimation(revTranslate);
         saveButton.setVisibility(View.VISIBLE);
     }
 
-    public void saveDialogue() {
-        //TODO: Actual logic for editing profile
+    /**
+     * Method call for when user clicks on the 'save' button.
+     *
+     * @param tutorInfo a map of all the old information on screen
+     */
+    public void saveDialogue(final Map tutorInfo) {
+        //Creates the alert dialogue
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
-        // Setting Dialog Title
+        //Setting Dialog Title
         alertDialog.setTitle("Save Changes");
 
-        // Setting Dialog Message
+        //Setting Dialog Message
         alertDialog.setMessage("Are you sure you want to save these changes?");
 
-        // Setting Icon to Dialog
+        //Setting Icon to Dialog
         alertDialog.setIcon(R.drawable.ic_tutorme);
 
-        // YES
+        //YES
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "Good job",
+                //Create animations
+                final Animation animrevTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reverse_translate);
+                final Animation animTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
+
+                //Animate save button, hide it
+                Button saveButton = (Button) findViewById(R.id.save_button);
+                saveButton.startAnimation(animTranslate);
+                saveButton.setVisibility(View.GONE);
+
+                //Animate edit button, show it
+                Button editButton = (Button) findViewById(R.id.edit_button);
+                editButton.startAnimation(animrevTranslate);
+                editButton.setVisibility(View.VISIBLE);
+
+                //Turn off the Bio EditText, change color
+                EditText bioField = (EditText) findViewById(R.id.BioField);
+                bioField.setTextIsSelectable(false);
+                bioField.setEnabled(false);
+                bioField.setBackgroundResource(android.R.color.transparent);
+
+                //Perform update
+                yesAction(getTutorInfo());
+
+                //Show confirmation
+                Toast.makeText(getApplicationContext(), "Changes saved",
                         Toast.LENGTH_SHORT).show();
 
-                final Animation animrevTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reverse_translate);
-                final Animation animTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
-
-
-                Button saveButton = (Button) findViewById(R.id.save_button);
-                saveButton.startAnimation(animTranslate);
-                saveButton.setVisibility(View.GONE);
-
-                Button editButton = (Button) findViewById(R.id.edit_button);
-                editButton.startAnimation(animrevTranslate);
-                editButton.setVisibility(View.VISIBLE);
-
             }
         });
 
-        // NO
+        //NO
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                //TODO: Logic for not saving
-                Toast.makeText(getApplicationContext(), "Why not", Toast.LENGTH_SHORT).show();
-
+                //Create animations
                 final Animation animrevTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reverse_translate);
                 final Animation animTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
 
+                //Animate save button, hide it
                 Button saveButton = (Button) findViewById(R.id.save_button);
                 saveButton.startAnimation(animTranslate);
                 saveButton.setVisibility(View.GONE);
 
+                //Animate edit button, show it
                 Button editButton = (Button) findViewById(R.id.edit_button);
                 editButton.startAnimation(animrevTranslate);
                 editButton.setVisibility(View.VISIBLE);
 
+                //Turn off the Bio EditText, change color
+                EditText bioField = (EditText) findViewById(R.id.BioField);
+                bioField.setTextIsSelectable(false);
+                bioField.setEnabled(false);
+                bioField.setBackgroundResource(android.R.color.transparent);
+
+                //Perform rollback
+                noAction(tutorInfo);
+
+                //Show confirmation
+                Toast.makeText(getApplicationContext(), "Changes discarded", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        // Cancel
+        //Cancel
         alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(getApplicationContext(), "Pick a side",
-                //      Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        // Showing Alert Message
+        //Showing Alert Message
         alertDialog.show();
     }
 
+    /**
+     * Method call to populate fields with correct information
+     *
+     * @param upUserInfo
+     */
     public void setupUserInfo(Bundle upUserInfo) {
         // Getting Info
         String name = upUserInfo.getString("userName");
@@ -196,10 +244,93 @@ public class TutorProfileActivity extends Activity {
         nameField.setText(name);
     }
 
+    //TODO: make popup work
     public void editGrades(View v) {
         PopupWindow PW = new PopupWindow(100, 100);
         PW.showAtLocation(v, 10, 1, 1);
     }
 
+    /**
+     * Method call for when user clicks 'no' on save popup.
+     * Replaces any edits with old information
+     *
+     * @param oldInfo a map of all the old information on the screen
+     */
+    public void noAction(Map oldInfo) {
+        EditText t = (EditText) findViewById(R.id.BioField);
+        t.setText((CharSequence) oldInfo.get(1));
+    }
+
+    /**
+     * Method call for when the user clicks 'yes' on the save popup.
+     * Keeps any changes the user has made.
+     *
+     * @param newInfo a map of all the new information on the screen
+     */
+    public void yesAction(Map newInfo) {
+        EditText t = (EditText) findViewById(R.id.BioField);
+        t.setText((CharSequence) newInfo.get(1));
+
+    }
+
+    /**
+     * Grabs all of the current information entered on screen
+     *
+     * @return info a dictionary of all the info taken off screen
+     */
+    public Map getTutorInfo() {
+        Map<Integer, String> info = new HashMap<Integer, String>();
+        EditText t = (EditText) findViewById(R.id.BioField);
+        info.put(1, t.getText().toString());
+        return info;
+    }
+
+    /**
+     * Pulls up the add subject window
+     *
+     * @param v the button pressed
+     */
+    public void addSubject(final View v) {
+        final ArrayList<String> subjectList = new ArrayList<String>();
+
+        //Creates the alert dialogue
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        alertDialog.setView(input);
+
+        //Setting Dialog Title
+        alertDialog.setTitle("Add subject");
+
+        //Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.ic_tutorme);
+
+        //Add skills visually, and pass to the server
+        alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String skill = input.getText().toString();
+                Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+                subjectList.add(skill);
+                newSkill.setText(skill);
+                LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+                layout.removeView(v);
+                layout.addView(newSkill);
+                layout.addView(v);
+
+                //TODO: Push arraylist to server
+
+            }
+        });
+
+        alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+
+        alertDialog.show();
+
+
+    }
 
 }
