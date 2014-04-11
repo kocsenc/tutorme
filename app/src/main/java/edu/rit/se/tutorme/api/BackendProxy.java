@@ -31,7 +31,7 @@ public class BackendProxy implements BackendInterface {
     /**
      * Authentication token that is passed with (almost) every request.
      */
-    private static String token;
+    private static String token = "";
 
     /**
      * URL of the API server.
@@ -45,8 +45,6 @@ public class BackendProxy implements BackendInterface {
         if (BackendProxy.httpRequest == null) {
             BackendProxy.httpRequest = new HttpRequest();
         }
-
-        BackendProxy.token = "";
     }
 
     /**
@@ -107,7 +105,8 @@ public class BackendProxy implements BackendInterface {
             JSONObject response = new JSONObject(rawResponse);
 
             if (response.get("status").equals("success")) {
-                // Store the authentication token
+                // Store the authentication pair
+                BackendProxy.email = email;
                 BackendProxy.token = response.getString("token");
 
                 TutorMeUser loginUser = new TutorMeUser(response.getJSONObject("user"));
