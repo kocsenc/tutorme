@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -20,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -142,7 +144,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-
         }
     }
 
@@ -234,6 +235,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mEmailView.setAdapter(adapter);
     }
 
+    /**
+     * This is the method that is run if there was no client side errors when logging in.
+     * AKA, if the email is valid and the password meets requirement length and the actual backend
+     * returns success signal, this method executes.
+     *
+     * When executing it will check if the user is a tutor or a student and make appropriate intents.
+     * Additionally any info that the intents may need is set.
+     */
     private void onSuccessLogin(TutorMeUser loginUser) {
         UserType type = loginUser.getUserType();
         Intent intent;
@@ -248,6 +257,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             intent.putExtra("userEmail", loginUser.getEmail());
             intent.putExtra("userType", loginUser.getUserType());
         }
+
+        // Hide keyboard before moving to next activity
+        InputMethodManager im = (InputMethodManager) this.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
         startActivity(intent);
     }
 

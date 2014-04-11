@@ -67,9 +67,10 @@ public class BackendProxy implements BackendInterface {
      * @return true if successful, false otherwise.
      */
     @Override
-    public boolean register(TutorMeUser user) throws APIResponseException {
+    public boolean register(TutorMeUser user, String password) throws APIResponseException {
         try {
             JSONObject registerRequestBody = user.getJSON();
+            registerRequestBody.put("password", password);
 
             String rawResponse = httpRequest.sendJSONPost(
                     this.uri + "/users/register", registerRequestBody);
@@ -104,9 +105,12 @@ public class BackendProxy implements BackendInterface {
 
             if (response.get("status").equals("success")) {
                 // Store the authentication token
-                BackendProxy.token = (String) response.get("token");
+                BackendProxy.token = response.getString("token");
 
-                return new TutorMeUser((JSONObject) response.get("user"));
+                TutorMeUser loginUser = new TutorMeUser(response.getJSONObject("user"));
+                loginUser.load();
+
+                return loginUser;
             } else {
                 throw new AuthenticationException((String) response.get("message"));
             }
@@ -269,7 +273,10 @@ public class BackendProxy implements BackendInterface {
 
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
+
                     TutorMeUser user = new TutorMeUser(object);
+                    user.load();
+
                     results.add(user);
                 }
             } else {

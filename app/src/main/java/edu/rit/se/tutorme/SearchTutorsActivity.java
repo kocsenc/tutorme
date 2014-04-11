@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,12 +16,15 @@ import java.util.ArrayList;
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
+import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 
 public class SearchTutorsActivity extends ListActivity {
 
     ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
     ArrayAdapter<TutorMeUser> adapter;
+    private SearchUserTask searchTask = null;
+    private String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +43,18 @@ public class SearchTutorsActivity extends ListActivity {
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            query = intent.getStringExtra(SearchManager.QUERY);
 
             //TODO: Perform search
-            BackendInterface api = new BackendProxy();
-            try {
-                results = api.search(query);
-            } catch (TokenMismatchException e) {
-                e.printStackTrace();
-            }
-            adapter.notifyDataSetChanged();
+            searchTask = new SearchUserTask();
+            searchTask.execute();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tutor_main, menu);
+        getMenuInflater().inflate(R.menu.student_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search_action_bar).getActionView();
@@ -75,5 +73,28 @@ public class SearchTutorsActivity extends ListActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class SearchUserTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            BackendInterface api = new BackendProxy();
+            try {
+                results = api.search(query);
+                adapter.notifyDataSetChanged();
+                return true;
+            } catch (TokenMismatchException e) {
+                e.printStackTrace();
+                results.clear();
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+
+        }
     }
 }

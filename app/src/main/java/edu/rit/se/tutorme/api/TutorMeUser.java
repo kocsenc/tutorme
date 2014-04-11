@@ -1,54 +1,129 @@
 package edu.rit.se.tutorme.api;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * Model of the TutorMeUser.
+ *
  * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public class TutorMeUser {
 
+    private JSONObject rawData;
     private UserType userType;
-    private JSONObject userJson;
     private String name;
     private String email;
-
+    private String postal;
+    private TutorMeProfile profile;
 
     /**
      * Default constructor.
      *
-     * @param userData
+     * @param rawData Raw user data received from server.
      */
-    public TutorMeUser(JSONObject userData) {
-        this.userJson = userData;
+    public TutorMeUser(JSONObject rawData) {
+        this.rawData = rawData;
+    }
 
+    /**
+     * Overloaded constructor for the TutorMeUser class.
+     *
+     * @param userType type of user
+     * @param name name of user
+     * @param email email of user
+     * @param postal postal code of user
+     */
+    public TutorMeUser(UserType userType,
+                       String name,
+                       String email,
+                       String postal) {
+        this.userType = userType;
+        this.name = name;
+        this.email = email;
+        this.postal = postal;
+        this.profile = new TutorMeProfile();
+    }
+
+    /**
+     * Method to load data into the object
+     * if object was constructed using the
+     * JSONObject constructor.
+     */
+    public void load() {
         try {
-            this.userType = UserType.toUserType(userData.get("type").toString());
-            this.name = (String) userData.get("name");
-            this.email = (String) userData.get("email");
+            this.userType = UserType.toUserType(this.rawData.getString("type"));
+            this.name = this.rawData.getString("name");
+            this.email = this.rawData.getString("email");
+            this.postal = this.rawData.getString("postal");
+
+            if (this.userType == UserType.Tutor) {
+                this.profile = new TutorMeProfile(this.rawData.getJSONObject("profile"));
+                this.profile.load();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-
+    /**
+     * Getter for userType.
+     * @return the user's type
+     */
     public UserType getUserType() {
-        return userType;
+        return this.userType;
     }
 
+    /**
+     * Getter for name.
+     * @return the user's name.
+     */
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    /**
+     * Getter for email.
+     * @return the user's email
+     */
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
+    /**
+     * Getter for postal address.
+     * @return the user's postal address.
+     */
+    public String getPostal() {
+        return this.postal;
+    }
 
+    /**
+     * Getter for tutor profile.
+     * @return the user's profile.
+     */
+    public TutorMeProfile getProfile() {
+        return this.profile;
+    }
+
+    /**
+     * Generate JSON object representation of the object.
+     * @return JSON representation of the object
+     */
     public JSONObject getJSON() {
-        return userJson;
+        JSONObject rawData = new JSONObject();
+
+        try {
+            rawData.put("type", this.userType.toString());
+            rawData.put("name", this.name);
+            rawData.put("email", this.email);
+            rawData.put("postal", this.postal);
+
+            return rawData;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
