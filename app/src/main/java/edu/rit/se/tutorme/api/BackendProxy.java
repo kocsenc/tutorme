@@ -31,7 +31,7 @@ public class BackendProxy implements BackendInterface {
     /**
      * Authentication token that is passed with (almost) every request.
      */
-    private static String token;
+    private static String token = "";
 
     /**
      * URL of the API server.
@@ -45,8 +45,6 @@ public class BackendProxy implements BackendInterface {
         if (BackendProxy.httpRequest == null) {
             BackendProxy.httpRequest = new HttpRequest();
         }
-
-        BackendProxy.token = "";
     }
 
     /**
