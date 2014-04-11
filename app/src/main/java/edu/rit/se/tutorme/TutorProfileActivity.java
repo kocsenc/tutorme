@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,10 +25,17 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.rit.se.tutorme.api.BackendInterface;
+import edu.rit.se.tutorme.api.BackendProxy;
+import edu.rit.se.tutorme.api.TutorMeProfile;
+import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
+import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
+
 
 public class TutorProfileActivity extends Activity {
     String tutorName;
     String tutorEmail;
+    TutorMeProfile tutorProfile;
     String bioInfo;
     ArrayList<String> subjectList;
     ArrayList<String> gradeList;
@@ -253,6 +261,11 @@ public class TutorProfileActivity extends Activity {
         String name = upUserInfo.getString("userName");
         String email = upUserInfo.getString("userEmail");
 
+        // Getting TutorMeProfile
+        TutorMeProfileTask task = new TutorMeProfileTask(upUserInfo.getString("userEmail"));
+        task.execute();
+        // The task should assign this.tutorProfile
+
         // Setting local Variables
         this.tutorName = name;
         this.tutorEmail = email;
@@ -398,6 +411,30 @@ public class TutorProfileActivity extends Activity {
         alertDialog.show();
 
 
+    }
+
+    public class TutorMeProfileTask extends AsyncTask<Void, Void, Boolean> {
+        private final String mEmail;
+
+        TutorMeProfileTask(String email) {
+            mEmail = email;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            BackendInterface api = new BackendProxy();
+
+            try {
+                try {
+                    tutorProfile = api.getProfile(mEmail);
+                } catch (TokenMismatchException e) {
+                    e.printStackTrace();
+                }
+            } catch (InvalidParametersException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
     }
 
 }
