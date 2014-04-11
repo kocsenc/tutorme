@@ -74,7 +74,7 @@ public class TutorProfileActivity extends Activity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
-        getMenuInflater().inflate(R.menu.tutor_main, menu);
+        getMenuInflater().inflate(R.menu.student_menu, menu);
         return true;
     }
 
