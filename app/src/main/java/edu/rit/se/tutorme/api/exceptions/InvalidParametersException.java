@@ -9,6 +9,7 @@ public class InvalidParametersException extends APIResponseException {
 
     /**
      * Default constructor for the InvalidParametersException class.
+     *
      * @param message String of the error message.
      */
     public InvalidParametersException(String message) {

@@ -12,7 +12,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -34,8 +33,8 @@ import java.util.List;
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
-import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.UserType;
+import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 /**
@@ -55,6 +54,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView mRegisterText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +85,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
+        mRegisterText = (TextView) findViewById(R.id.register_text_view);
+        mRegisterText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToRegister();
+            }
+            });
         mLoginFormView = mEmailView;
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void goToRegister(){
+        Intent regIntent = new Intent(this, RegisterActivity.class);
+        startActivity(regIntent);
     }
 
     private void populateAutoComplete() {
@@ -239,7 +251,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * This is the method that is run if there was no client side errors when logging in.
      * AKA, if the email is valid and the password meets requirement length and the actual backend
      * returns success signal, this method executes.
-     *
+     * <p/>
      * When executing it will check if the user is a tutor or a student and make appropriate intents.
      * Additionally any info that the intents may need is set.
      */

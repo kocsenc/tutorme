@@ -14,6 +14,7 @@ public class APIResponseException extends Exception {
 
     /**
      * Default constructor for the APIResponseException class.
+     *
      * @param message String of the error message.
      */
     public APIResponseException(String message) {

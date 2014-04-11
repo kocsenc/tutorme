@@ -2,6 +2,8 @@ package edu.rit.se.tutorme.api;
 
 /**
  * Enumeration that declares the type of a user.
+ *
+ * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public enum UserType {
     Student,

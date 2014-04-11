@@ -76,6 +76,7 @@ public class TutorMeUser {
 
     /**
      * Getter for name.
+     *
      * @return the user's name.
      */
     public String getName() {
