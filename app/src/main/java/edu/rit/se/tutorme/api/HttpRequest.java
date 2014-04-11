@@ -1,15 +1,6 @@
 package edu.rit.se.tutorme.api;
 
-/**
- * Created by Kocsen on 3/18/14.
- */
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,13 +17,20 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import android.util.Log;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Class to abstract away the intricacies of
  * performing HTTP GET/POST/PUT/DELETE calls.
+ *
+ * @author Kocsen Chung
  */
-class HttpRequest {
+public class HttpRequest {
 
     DefaultHttpClient httpClient;
     HttpContext localContext;
@@ -42,6 +40,9 @@ class HttpRequest {
     HttpPost httpPost = null;
     HttpGet httpGet = null;
 
+    /**
+     * Default constructor for the HttpRequest class.
+     */
     public HttpRequest() {
         HttpParams myParams = new BasicHttpParams();
 
@@ -62,7 +63,7 @@ class HttpRequest {
                 httpPost.abort();
             }
         } catch (Exception e) {
-            System.out.println("Tutorme" + e);
+            System.out.println("TutorMe" + e);
         }
     }
 
@@ -98,12 +99,12 @@ class HttpRequest {
         try {
             tmp = new StringEntity(data, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            Log.e("Tutorme", "HttpUtils : UnsupportedEncodingException : " + e);
+            Log.e("TutorMe", "HttpUtils : UnsupportedEncodingException : " + e);
         }
 
         httpPost.setEntity(tmp);
 
-        Log.d("Tutorme", url + "?" + data);
+        Log.d("TutorMe", url + "?" + data);
 
         try {
             response = httpClient.execute(httpPost, localContext);
@@ -112,10 +113,10 @@ class HttpRequest {
                 ret = EntityUtils.toString(response.getEntity());
             }
         } catch (Exception e) {
-            Log.e("Tutorme", "HttpUtils: " + e);
+            Log.e("TutorMe", "HttpUtils: " + e);
         }
 
-        Log.d("Tutorme", "Returning value:" + ret);
+        Log.d("TutorMe", "Returning value:" + ret);
 
         return ret;
     }
@@ -126,7 +127,7 @@ class HttpRequest {
         try {
             response = httpClient.execute(httpGet);
         } catch (Exception e) {
-            Log.e("Tutorme", e.getMessage());
+            Log.e("TutorMe", e.getMessage());
         }
 
         //int status = response.getStatusLine().getStatusCode();
@@ -135,7 +136,7 @@ class HttpRequest {
         try {
             ret = EntityUtils.toString(response.getEntity());
         } catch (IOException e) {
-            Log.e("Tutorme", e.getMessage());
+            Log.e("TutorMe", e.getMessage());
         }
 
         return ret;

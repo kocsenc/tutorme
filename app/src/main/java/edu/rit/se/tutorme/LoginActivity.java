@@ -28,22 +28,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.rit.se.tutorme.api.TutorMeAPI;
+import edu.rit.se.tutorme.api.BackendInterface;
+import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
-
+import edu.rit.se.tutorme.api.UserType;
+import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
+import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 /**
  * A login screen that offers login via email/password.
+ *
+ * @author Kocsen Chung
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -84,11 +82,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-
-        mLoginFormView = findViewById(R.id.email_login_form);
+        mLoginFormView = mEmailView;
         mProgressView = findViewById(R.id.login_progress);
-
-
     }
 
     private void populateAutoComplete() {
@@ -111,8 +106,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = mEmailView.getText() == null ? "" : mEmailView.getText().toString();
+        String password = mPasswordView.getText() == null ? "" : mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -151,13 +146,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
@@ -231,6 +224,32 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
+    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(LoginActivity.this,
+                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+
+        mEmailView.setAdapter(adapter);
+    }
+
+    private void onSuccessLogin(TutorMeUser loginUser) {
+        UserType type = loginUser.getUserType();
+        Intent intent;
+        if (type.equals(UserType.Tutor)) {
+            intent = new Intent(this, TutorProfileActivity.class);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
+        } else {
+            intent = new Intent(this, StudentHomeActivity.class);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
+        }
+        startActivity(intent);
+    }
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -239,23 +258,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
-    }
-
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
-
-    private void onSuccessLogin(TutorMeUser loginUser) {
-        Intent tutorIntent = new Intent(this, TutorProfileActivity.class);
-        startActivity(tutorIntent);
-
-
     }
 
     /**
@@ -274,14 +276,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            TutorMeAPI api = new TutorMeAPI();
-            TutorMeUser user = api.login(mEmail, mPassword);
-            this.user = user;
+            BackendInterface api = new BackendProxy();
 
-            if (user == null) {
-                return false;
-            } else {
+            try {
+                this.user = api.login(mEmail, mPassword);
                 return true;
+            } catch (AuthenticationException e) {
+                return false;
             }
         }
 
@@ -306,6 +307,3 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 }
-
-
-

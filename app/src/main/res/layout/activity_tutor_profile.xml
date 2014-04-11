@@ -1,187 +1,242 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/gray">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:focusable="false"
         android:baselineAligned="false"
-        android:weightSum="1"
-        android:gravity="center_vertical|center_horizontal|bottom">
+        android:focusable="false"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:weightSum="1">
 
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="162dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="0.98">
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_weight="0.94">
 
-            <TableRow
+            <TableLayout
+                android:id="@+id/tableLayout"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/tableRow3"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="left">
+                android:layout_height="162dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="0.98"
+                android:stretchColumns="*">
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <TableRow
+                    android:id="@+id/tableRow3"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imageView"
-                        android:src="@drawable/ic_tutorme" />
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/tutor_rounded_bg"
+                    android:gravity="center_vertical">
 
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/linearLayout2">
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                        <TextView
+                        <ImageView
+                            android:id="@+id/imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Crug Crabby"
-                            android:id="@+id/UsernameField"
-                            android:textSize="25dp" />
+                            android:cropToPadding="false"
+                            android:focusable="false"
+                            android:paddingRight="10dp"
+                            android:src="@drawable/ic_tutorme" />
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rochester, NY"
-                            android:id="@+id/textView6" />
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="14623"
-                            android:id="@+id/textView7" />
+                            <TextView
+                                android:id="@+id/UserNameField"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/gray"
+                                android:textSize="25dp" />
 
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rochester, NY"
+                                android:textColor="@color/gray" />
+
+                            <TextView
+                                android:id="@+id/textView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="14623"
+                                android:textColor="@color/gray" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
+                </TableRow>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_gravity="top">
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/tutor_rounded_bg">
 
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Bio"
-                        android:id="@+id/textView" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="top"
+                        android:orientation="vertical">
 
-                    <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="I am a super duper tutor and I love my friends! I have worked in a variety of early childhood educations ettings and I specialize in infants and toddler. I have 4 children of my own (twins!) and I love to play with childern"
-                        android:id="@+id/BioField"
-                        android:paddingStart="15dp"
-                        android:enabled="false"
-                        android:editable="false"
-                        android:textColor="@color/light_black" />
-                </LinearLayout>
-            </TableRow>
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:text="Bio"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/gray" />
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/tableRow"
-                android:layout_marginBottom="20dp">
+                        <View
+                            android:layout_width="320dp"
+                            android:layout_height="2px"
+                            android:background="#90909090" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                        <EditText
+                            android:id="@+id/BioField"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:background="@android:color/transparent"
+                            android:editable="true"
+                            android:padding="10dp"
+                            android:text="I am a super duper tutor and I love my friends! I have worked in a variety of early childhood educations ettings and I specialize in infants and toddler. I have 4 children of my own (twins!) and I love to play with childern"
+                            android:textColor="@color/gray"
+                            android:textIsSelectable="false" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_gravity="top">
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/tutor_rounded_bg">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Grade Levels"
-                        android:id="@+id/textView3" />
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="top"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/GradeLevelField"
-                        android:text="6-12"
-                        android:paddingStart="15dp" />
-                </LinearLayout>
-            </TableRow>
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:gravity="center_horizontal"
+                            android:text="Grade Levels"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/gray" />
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/tableRow2"
-                android:layout_marginBottom="20dp">
+                        <View
+                            android:layout_width="320dp"
+                            android:layout_height="2px"
+                            android:background="#90909090" />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:id="@+id/GradeLevelField"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="15dp"
+                                android:text="6-12"
+                                android:textColor="@color/gray" />
+
+                            <Button
+                                android:id="@+id/editGradeButton"
+                                style="?android:attr/buttonStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:background="@color/red"
+                                android:text="Edit"
+                                android:textColor="#FFFFFF" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_gravity="top">
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/tutor_rounded_bg">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Subjects"
-                        android:id="@+id/textView5" />
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="top"
+                        android:orientation="vertical">
 
-                    <ListView
-                        android:layout_width="wrap_content"
-                        android:layout_height="114dp"
-                        android:id="@+id/listView"
-                        android:drawSelectorOnTop="false"
-                        android:textFilterEnabled="false"
-                        android:fastScrollAlwaysVisible="false"
-                        android:smoothScrollbar="true" />
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:gravity="center_horizontal"
+                            android:text="Subjects"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/gray" />
 
-                </LinearLayout>
-            </TableRow>
+                        <View
+                            android:layout_width="320dp"
+                            android:layout_height="2px"
+                            android:background="#90909090" />
 
-        </TableLayout>
+                        <ListView
+                            android:id="@+id/listView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="114dp"
+                            android:drawSelectorOnTop="false"
+                            android:fastScrollAlwaysVisible="false"
+                            android:smoothScrollbar="true"
+                            android:textFilterEnabled="false" />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
 
         <Button
+            android:id="@+id/edit_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:id="@+id/edit_button"
             android:background="@color/red"
             android:clickable="true"
             android:enabled="true"
+            android:text="Edit"
             android:textColor="#FFFFFF" />
 
 
         <Button
+            android:id="@+id/save_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/save_button"
             android:background="@color/red"
             android:clickable="true"
             android:enabled="true"
+            android:text="Save"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 </RelativeLayout>

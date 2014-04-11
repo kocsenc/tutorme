@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,19 +12,36 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class TutorProfileActivity extends Activity {
+    String tutorName;
+    String tutorEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-        Intent myIntent = getIntent();
-        //String email = myIntent.getStringArrayExtra("Email").toString();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutor_profile);
+
+        //Set bioField to be uneditable
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.setEnabled(false);
+        bioField.setTextIsSelectable(false);
+
+        //Hide editGradeButton, give it functionality
+        Button gradeButton = (Button) findViewById(R.id.editGradeButton);
+        //gradeButton.setVisibility(View.GONE);
+        gradeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editGrades(findViewById(R.id.editGradeButton));
+            }
+        });
+
 
         //Hide save button, give it functionality
         Button saveButton = (Button) findViewById(R.id.save_button);
@@ -44,6 +62,9 @@ public class TutorProfileActivity extends Activity {
             }
         });
 
+        Intent myIntent = getIntent();
+        Bundle userInfo = myIntent.getExtras();
+        setupUserInfo(userInfo);
 
     }
 
@@ -53,6 +74,7 @@ public class TutorProfileActivity extends Activity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.tutor_profile, menu);
+        getMenuInflater().inflate(R.menu.tutor_main, menu);
         return true;
     }
 
@@ -70,6 +92,13 @@ public class TutorProfileActivity extends Activity {
 
     //Changes 'edit' button to 'save' button
     public void editProfile(View v) {
+
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.setTextIsSelectable(true);
+        bioField.setEnabled(true);
+        ColorDrawable c = new ColorDrawable(R.color.black);
+        bioField.setBackground(c);
+
 
         //Start animation
         final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.translate);
@@ -152,5 +181,25 @@ public class TutorProfileActivity extends Activity {
         // Showing Alert Message
         alertDialog.show();
     }
+
+    public void setupUserInfo(Bundle upUserInfo) {
+        // Getting Info
+        String name = upUserInfo.getString("userName");
+        String email = upUserInfo.getString("userEmail");
+
+        // Setting local Variables
+        this.tutorName = name;
+        this.tutorEmail = email;
+
+        // Getting fields and setting test
+        TextView nameField = (TextView) findViewById(R.id.UserNameField);
+        nameField.setText(name);
+    }
+
+    public void editGrades(View v) {
+        PopupWindow PW = new PopupWindow(100, 100);
+        PW.showAtLocation(v, 10, 1, 1);
+    }
+
 
 }

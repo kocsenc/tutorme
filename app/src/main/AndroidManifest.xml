@@ -13,17 +13,16 @@
             android:windowSoftInputMode="adjustResize|stateVisible">
 
         </activity>
-
         <activity
             android:name="edu.rit.se.tutorme.TutorProfileActivity"
             android:label="@string/title_activity_tutor_profile" />
-
         <activity
-            android:name="edu.rit.se.tutorme.SearchTutors"
+            android:name="edu.rit.se.tutorme.SearchTutorsActivity"
             android:label="@string/title_activity_search_tutors">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -36,6 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".student.StudentHomeActivity"
+            android:label="@string/title_activity_student_home"></activity>
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->

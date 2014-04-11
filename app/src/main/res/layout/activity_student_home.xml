@@ -1,0 +1,186 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/light_black"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/tableRow"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/student_rounded_bg"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:cropToPadding="false"
+                        android:focusable="false"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/ic_tutorme" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/StudentNameField"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="25dp" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rochester, NY" />
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14623" />
+                    </LinearLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/student_rounded_bg">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="top"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_horizontal"
+                        android:phoneNumber="false"
+                        android:text="Tutor Search"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/light_black" />
+
+                    <Button
+                        android:id="@+id/button3"
+                        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_action_time"
+                        android:drawableRight="@drawable/ic_action_next_item"
+                        android:gravity="center_vertical|left"
+                        android:singleLine="false"
+                        android:text="Recenty Viewed"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_black" />
+
+                    <View
+                        android:layout_width="320dp"
+                        android:layout_height="2px"
+                        android:background="#90909090" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_action_location_found"
+                        android:drawableRight="@drawable/ic_action_next_item"
+                        android:gravity="center_vertical|left"
+                        android:singleLine="false"
+                        android:text="Tutors Nearby"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_black" />
+
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/student_rounded_bg"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="5dp"
+                    android:baselineAligned="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal"
+                        android:text="My TutorMe"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/light_black" />
+
+                    <Button
+                        android:id="@+id/button"
+                        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_action_email"
+                        android:drawableRight="@drawable/ic_action_next_item"
+                        android:gravity="center_vertical|left"
+                        android:singleLine="false"
+                        android:text="Messages"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_black" />
+
+                    <View
+                        android:layout_width="320dp"
+                        android:layout_height="2px"
+                        android:background="#90909090" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_action_settings"
+                        android:drawableRight="@drawable/ic_action_next_item"
+                        android:gravity="center_vertical|left"
+                        android:singleLine="false"
+                        android:text="Preferences"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/light_black" />
+                </LinearLayout>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

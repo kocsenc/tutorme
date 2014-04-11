@@ -2,14 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.rit.se.tutorme.LoginActivity"
     android:background="@color/red"
-    android:gravity="center_vertical">
+    android:orientation="vertical"
+    tools:context="edu.rit.se.tutorme.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -17,90 +12,142 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/email_login_form"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:focusable="false"
-        android:baselineAligned="false"
-        android:weightSum="1"
-        android:gravity="center_vertical|center_horizontal">
+        android:id="@+id/scrollView"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:fillViewport="true">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="119dp"
-            android:gravity="center_vertical|center_horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/icon_signin"
-                android:src="@drawable/ic_tutorme"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/signinicon"
-                android:visibility="visible"
-                android:scaleType="fitXY"
-                android:layout_row="0"
-                android:layout_column="7" />
-        </RelativeLayout>
-
-        <AutoCompleteTextView
-            android:id="@+id/email"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/light_gray"
-            android:textColorHint="@color/gray"
-            android:layout_marginTop="10dp" />
+            android:baselineAligned="false"
+            android:focusable="false"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            android:imeActionId="@+id/login"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/light_gray"
-            android:textColorHint="@color/gray"
-            android:layout_marginTop="10dp" />
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:shrinkColumns="*"
+                android:layout_marginBottom="40dp">
 
-        <Button
-            android:id="@+id/email_sign_in_button"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/action_sign_in"
-            android:textStyle="bold"
-            android:background="@color/light_black"
-            android:clickable="true"
-            android:textColor="@color/gray"
-            android:textSize="18dp" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="50dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/action_register"
-            android:id="@+id/register_text_view"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/light_gray" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:gravity="bottom|top">
 
-    </LinearLayout>
+                        <ImageView
+                            android:id="@+id/icon_signin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_alignParentEnd="false"
+                            android:layout_alignParentStart="false"
+                            android:layout_gravity="center_horizontal"
+                            android:contentDescription="@string/signinicon"
+                            android:cropToPadding="false"
+                            android:scaleType="fitCenter"
+                            android:visibility="visible"
+                            android:src="@drawable/logo"
+                            android:layout_alignParentBottom="false" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray"
+                        android:textColorHint="@color/gray"
+                        android:nextFocusDown="@+id/password"
+                        android:layout_gravity="bottom" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_password"
+                        android:imeActionId="@+id/login"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray"
+                        android:textColorHint="@color/gray"
+                        android:layout_gravity="bottom" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        style="?android:textAppearanceSmall"
+                        android:id="@+id/email_sign_in_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/light_black"
+                        android:clickable="true"
+                        android:text="@string/action_sign_in"
+                        android:textColor="@color/gray"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_weight="0"
+                        android:layout_gravity="bottom" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:baselineAligned="false"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:id="@+id/register_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/action_register"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/light_gray"
+                        android:layout_gravity="center_horizontal|bottom" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
 

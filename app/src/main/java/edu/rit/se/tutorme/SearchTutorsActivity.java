@@ -1,21 +1,33 @@
 package edu.rit.se.tutorme;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 
+import java.util.ArrayList;
 
-public class SearchTutors extends Activity {
+import edu.rit.se.tutorme.api.BackendInterface;
+import edu.rit.se.tutorme.api.BackendProxy;
+import edu.rit.se.tutorme.api.TutorMeUser;
+import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
+
+public class SearchTutorsActivity extends ListActivity {
+
+    ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
+    ArrayAdapter<TutorMeUser> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_tutors);
+        adapter = new ArrayAdapter<TutorMeUser>(this, android.R.layout.simple_list_item_1, results);
+        setListAdapter(adapter);
 
         handleIntent(getIntent());
     }
@@ -30,9 +42,15 @@ public class SearchTutors extends Activity {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
             //TODO: Perform search
+            BackendInterface api = new BackendProxy();
+            try {
+                results = api.search(query);
+            } catch (TokenMismatchException e) {
+                e.printStackTrace();
+            }
+            adapter.notifyDataSetChanged();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,5 +76,4 @@ public class SearchTutors extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

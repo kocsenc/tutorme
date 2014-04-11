@@ -15,5 +15,6 @@
     <string name="title_activity_search_tutors">SearchTutors</string>
     <string name="title_activity_edit_tutor_page">EditTutorPage</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_student_home">StudentHomeActivity</string>
 
 </resources>
