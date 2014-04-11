@@ -14,7 +14,7 @@ import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 /**
  * Concrete implementation of the BackendInterface.
  *
- * @author Craig Cabrey
+ * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public class BackendProxy implements BackendInterface {
 
@@ -230,7 +230,8 @@ public class BackendProxy implements BackendInterface {
             getProfileRequestBody.put("email", BackendProxy.email);
             getProfileRequestBody.put("token", BackendProxy.token);
 
-            String rawResponse = httpRequest.sendGet(this.uri + "/profiles/" + email);
+            String rawResponse = httpRequest.sendPost(this.uri + "/profiles/" + email,
+                    getProfileRequestBody.toString());
             JSONObject response = new JSONObject(rawResponse);
 
             if (response.get("status").equals("success")) {

@@ -11,7 +11,7 @@ import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
  * Interface that defines the backend
  * programming interface.
  *
- * @author Craig Cabrey
+ * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public interface BackendInterface {
 
