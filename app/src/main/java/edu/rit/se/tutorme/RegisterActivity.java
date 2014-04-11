@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.util.Log;
 
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
@@ -38,7 +39,9 @@ public class RegisterActivity extends Activity {
     private RadioButton mStudentButton;
     private RadioButton mTeacherButton;
 
-
+    /*
+      Creates the screen on startup
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,27 +60,30 @@ public class RegisterActivity extends Activity {
         ((RadioGroup) findViewById(R.id.RadioGroup)).check(R.id.radioButtonStudent);
 
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        //Add action listener to button
+        Button mEmailSignInButton = (Button) findViewById(R.id.register_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptRegister();
             }
         });
-
+        Log.v("bullshit","More Bullshit");
 
     }
-
+    /*
+        Attempts to register a user
+     */
     public void attemptRegister() {
 
         if (!validateinput()) {
             return;
         } else {
             showProgress(true);
-            String userName = mFNameView.toString() + mLNameView.toString();
-            String userZip = mZipCodeView.toString();
-            String userEmail = mEmailView.toString();
-            String userPassword = mPasswordView.toString();
+            String userName = mFNameView.getText().toString().trim() + " " + mLNameView.getText().toString().trim();
+            String userZip = mZipCodeView.getText().toString();
+            String userEmail = mEmailView.getText().toString();
+            String userPassword = mPasswordView.getText().toString();
             UserType userType = UserType.toUserType(getRadioButton());
             mRegTask = new UserRegisterTask(userName, userZip, userEmail, userPassword, userType);
             mRegTask.execute((Void) null);
@@ -85,7 +91,9 @@ public class RegisterActivity extends Activity {
 
 
     }
-
+    /*
+        Creates a progress bar on the screen
+     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -119,6 +127,9 @@ public class RegisterActivity extends Activity {
         }
     }
 
+    /*
+        the async task to register a user
+     */
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
         TutorMeUser newUser;
         String mPassword;
@@ -164,34 +175,29 @@ public class RegisterActivity extends Activity {
 
 
     }
-
+    /*
+        Takes user back into login screen
+     */
     private void onSuccessRegister(TutorMeUser registerUser) {
         UserType type = registerUser.getUserType();
-        Intent intent;
-        if (type.equals(UserType.Tutor)) {
-            intent = new Intent(this, TutorProfileActivity.class);
-            intent.putExtra("userName", registerUser.getName());
-            intent.putExtra("userEmail", registerUser.getEmail());
-            intent.putExtra("userType", registerUser.getUserType());
-        } else {
-            intent = new Intent(this, StudentHomeActivity.class);
-            intent.putExtra("userName", registerUser.getName());
-            intent.putExtra("userEmail", registerUser.getEmail());
-            intent.putExtra("userType", registerUser.getUserType());
-        }
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-
+    /*
+        Validates inputs so that craig's baby doesn't get destroyed
+     */
     private boolean validateinput() {
-        if (isEmailValid(mEmailView.toString())) {
+
+        if (!isEmailValid(mEmailView.getText().toString())) {
+            Log.v(String.valueOf(isEmailValid(mEmailView.getText().toString())), "Bullcrap");
             mEmailView.setError(getString(R.string.error_invalid_email));
 
             mEmailView.setText("");
 
             mEmailView.requestFocus();
             return false;
-
-        } else if (isLastNameValid(mLNameView.toString())) {
+        }
+         if (!isLastNameValid(mLNameView.getText().toString())) {
             mLNameView.setError(getString(R.string.error_no_name));
 
             mLNameView.setText("");
@@ -199,7 +205,7 @@ public class RegisterActivity extends Activity {
             mLNameView.requestFocus();
             return false;
 
-        } else if (isFirstNameValid(mFNameView.toString())) {
+        } else if (!isFirstNameValid(mFNameView.getText().toString())) {
             mFNameView.setError(getString(R.string.error_no_name));
 
             mFNameView.setText("");
@@ -207,7 +213,7 @@ public class RegisterActivity extends Activity {
             mFNameView.requestFocus();
             return false;
 
-        } else if (isPasswordValid(mPasswordView.toString())) {
+        } else if (!isPasswordValid(mPasswordView.getText().toString())) {
             mPasswordView.setError(getString(R.string.error_invalid_password_register));
 
             mPasswordView.setText("");
@@ -216,7 +222,7 @@ public class RegisterActivity extends Activity {
             mPasswordView.requestFocus();
             return false;
 
-        } else if (isPasswordCorrect(mPasswordView.toString(), mPasswordRetype.toString())) {
+        } else if (!isPasswordCorrect(mPasswordView.getText().toString(), mPasswordRetype.getText().toString())) {
             mPasswordView.setError(getString(R.string.error_password_match));
 
             mPasswordView.setText("");
@@ -225,14 +231,14 @@ public class RegisterActivity extends Activity {
             mPasswordView.requestFocus();
 
             return false;
-        } else if (!isRadioSelected()) {
-            return false;
         } else {
             return true;
         }
     }
 
-
+    /*
+        gets the selected radio button
+     */
     private String getRadioButton() {
         int radioId = ((RadioGroup) findViewById(R.id.RadioGroup)).getCheckedRadioButtonId();
         switch (radioId) {
@@ -240,6 +246,7 @@ public class RegisterActivity extends Activity {
                 return "0";
             case (R.id.radioButtonTeacher):
                 return "1";
+            //Should never happen
             default:
                 return "2";
 
@@ -266,29 +273,26 @@ public class RegisterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    // checks th email validation
     private boolean isEmailValid(String email) {
+        Log.v(email,"bullshitting");
         return email.contains("@");
 
     }
-
+    // checks password length
     private boolean isPasswordValid(String password) {
         return password.length() > 3;
     }
-
+    // checks password match
     private boolean isPasswordCorrect(String password, String passwordTwo) {
         return password.equals(passwordTwo);
     }
-
+    // check for a last name
     private boolean isFirstNameValid(String fname) {
         return fname.length() > 0;
     }
-
+    // check for a first name
     private boolean isLastNameValid(String lname) {
         return lname.length() > 0;
-    }
-
-    private boolean isRadioSelected() {
-        return getRadioButton() != "2";
     }
 }
