@@ -13,9 +13,9 @@
             android:windowSoftInputMode="adjustResize|stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name="edu.rit.se.tutorme.TutorProfileActivity"
@@ -35,6 +35,11 @@
                 android:name="android.app.searchable"
                 android:value="edu.rit.se.tutorme.SearchTutorsActivity"
                 android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="edu.rit.se.tutorme.RegisterActivity"
+            android:label="@string/title_activity_register">"
+
         </activity>
         <activity
             android:name=".student.StudentHomeActivity"

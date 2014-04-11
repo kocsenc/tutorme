@@ -1,0 +1,190 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_black"
+    android:gravity="center_vertical"
+    tools:context="edu.rit.se.tutorme.RegisterActivity">
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:id="@+id/register_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="false"
+            android:baselineAligned="false"
+            android:weightSum="1"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="119dp"
+                android:gravity="center_vertical|center_horizontal">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/icon_signin"
+                    android:src="@drawable/ic_tutorme"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/signinicon"
+                    android:visibility="visible"
+                    android:scaleType="fitCenter"
+                    android:layout_alignWithParentIfMissing="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentBottom="false" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/prompt_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_fname"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textColorHint="@color/red"
+                android:linksClickable="false"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:maxLength="255" />
+
+            <EditText
+                android:id="@+id/prompt_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_lname"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:linksClickable="false"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:maxLength="255" />
+
+            <EditText
+                android:id="@+id/zipcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_zipcode"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:maxLength="5"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:linksClickable="false"
+                android:autoText="false"
+                android:paddingBottom="@dimen/activity_vertical_margin" />
+
+            <AutoCompleteTextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:maxLength="255" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:imeActionId="@+id/password"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:maxLength="255" />
+
+            <EditText
+                android:id="@+id/password_retype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/retype_password"
+                android:imeActionId="@+id/password_retype"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:maxLength="255" />
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
+                android:longClickable="false"
+                android:gravity="center_horizontal|bottom"
+                android:id="@+id/RadioGroup"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/student_button"
+                    android:id="@+id/radioButtonStudent"
+                    android:textColor="@color/light_gray" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/teacher_button"
+                    android:id="@+id/radioButtonTeacher"
+                    android:textColor="@color/light_gray" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/register_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/register_button"
+                android:textStyle="bold"
+                android:background="@color/red"
+                android:clickable="true"
+                android:textColor="@color/gray"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

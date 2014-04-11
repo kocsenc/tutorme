@@ -31,7 +31,7 @@ public class BackendProxy implements BackendInterface {
     /**
      * Authentication token that is passed with (almost) every request.
      */
-    private static String token;
+    private static String token = "";
 
     /**
      * URL of the API server.
@@ -45,12 +45,11 @@ public class BackendProxy implements BackendInterface {
         if (BackendProxy.httpRequest == null) {
             BackendProxy.httpRequest = new HttpRequest();
         }
-
-        BackendProxy.token = "";
     }
 
     /**
      * Optional constructor used to populate the internal token.
+     *
      * @param token Authentication token to be used internally.
      */
     public BackendProxy(String token) {
@@ -63,6 +62,7 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to register a new user.
+     *
      * @param user User object to be registered.
      * @return true if successful, false otherwise.
      */
@@ -90,6 +90,7 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to destroy a user's current session.
+     *
      * @return true if successful, false otherwise.
      */
     @Override
@@ -104,7 +105,8 @@ public class BackendProxy implements BackendInterface {
             JSONObject response = new JSONObject(rawResponse);
 
             if (response.get("status").equals("success")) {
-                // Store the authentication token
+                // Store the authentication pair
+                BackendProxy.email = email;
                 BackendProxy.token = response.getString("token");
 
                 TutorMeUser loginUser = new TutorMeUser(response.getJSONObject("user"));
@@ -121,6 +123,7 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to destroy a user's current session.
+     *
      * @return true if successful, false otherwise.
      */
     @Override
@@ -149,10 +152,11 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to update a user's information.
+     *
      * @param user User object with updated information.
      * @return true if successful, false otherwise.
      * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
-     * server side.
+     *                                server side.
      */
     @Override
     public boolean updateUser(TutorMeUser user) throws TokenMismatchException {
@@ -181,10 +185,11 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to remove a user's account.
+     *
      * @param user User to be removed.
      * @return true if successful, false otherwise.
      * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
-     * server side.
+     *                                server side.
      */
     @Override
     public boolean deleteUser(TutorMeUser user) throws TokenMismatchException {
@@ -193,9 +198,10 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to get the list of newest messages.
+     *
      * @return List of new TutorMeMessages.
      * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
-     * server side.
+     *                                server side.
      */
     @Override
     public ArrayList<TutorMeMessage> getMessages() throws TokenMismatchException {
@@ -204,10 +210,11 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to send a message to a user.
+     *
      * @param message Message to be sent
      * @return true if successful, false otherwise.
      * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
-     * server side.
+     *                                server side.
      */
     @Override
     public boolean sendMessage(TutorMeMessage message) throws TokenMismatchException {
@@ -216,10 +223,11 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to fetch a tutor profile.
+     *
      * @param email Email of the profile to be get.
      * @return TutorMeProfile object received from server.
-     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
-     * server side.
+     * @throws TokenMismatchException     Thrown if internal token state causes a token mismatch
+     *                                    server side.
      * @throws InvalidParametersException Thrown if no such profile (or user is a student) exists.
      */
     @Override
@@ -250,10 +258,11 @@ public class BackendProxy implements BackendInterface {
 
     /**
      * Method to search the system for tutors.
+     *
      * @param query The search query to be executed.
      * @return List of TutorMeUser results.
      * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
-     * server side.
+     *                                server side.
      */
     @Override
     public ArrayList<TutorMeUser> search(String query) throws TokenMismatchException {

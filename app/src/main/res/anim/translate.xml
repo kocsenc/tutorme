@@ -7,9 +7,7 @@
         android:fromYDelta="0"
         android:toYDelta="100%p"
         android:duration="300"
-        android:repeatCount="0"
-        />
-
+        android:repeatCount="0" />
 
 
 </set>

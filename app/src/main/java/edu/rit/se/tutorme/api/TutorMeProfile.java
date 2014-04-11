@@ -31,6 +31,7 @@ public class TutorMeProfile {
 
     /**
      * Overloaded constructor for the TutorMeProfile class.
+     *
      * @param rawData Raw data with which to build profile object.
      */
     public TutorMeProfile(JSONObject rawData) {
@@ -39,6 +40,7 @@ public class TutorMeProfile {
 
     /**
      * Overloaded constructor for the TutorMeProfile class.
+     *
      * @param rate
      * @param description
      * @param gradeLevels
