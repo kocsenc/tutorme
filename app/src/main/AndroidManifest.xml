@@ -23,12 +23,17 @@
         <activity
             android:name="edu.rit.se.tutorme.SearchTutorsActivity"
             android:label="@string/title_activity_search_tutors">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchTutorsActivity"
+                android:resource="@xml/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
+                android:value="edu.rit.se.tutorme.SearchTutorsActivity"
                 android:resource="@xml/searchable" />
         </activity>
         <activity
