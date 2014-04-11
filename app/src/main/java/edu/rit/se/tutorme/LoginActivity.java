@@ -54,6 +54,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView mRegisterText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
+        mRegisterText = (TextView) findViewById(R.id.register_text_view);
+        mRegisterText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToRegister();
+            }
+            });
         mLoginFormView = mEmailView;
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void goToRegister(){
+        Intent regIntent = new Intent(this, RegisterActivity.class);
+        startActivity(regIntent);
     }
 
     private void populateAutoComplete() {
