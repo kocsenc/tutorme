@@ -83,6 +83,12 @@ public class TutorProfileActivity extends Activity {
 
         Intent myIntent = getIntent();
         Bundle userInfo = myIntent.getExtras();
+
+        // Getting TutorMeProfile
+        TutorMeProfileTask task = new TutorMeProfileTask(userInfo.getString("userEmail"));
+        task.execute();
+        // The task should assign this.tutorProfile
+
         setupUserInfo(userInfo);
 
     }
@@ -91,7 +97,7 @@ public class TutorProfileActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tutor_profile, menu);
+        getMenuInflater().inflate(R.menu.student_menu, menu);
         return true;
     }
 
@@ -254,6 +260,15 @@ public class TutorProfileActivity extends Activity {
     }
 
     /**
+     * method called after asynchronous call to backend.
+     *
+     * @param tutorProfile the tutor profile object
+     */
+    public void setupUserProfile(TutorMeProfile tutorProfile) {
+
+    }
+
+    /**
      * Method call to populate fields with correct information
      *
      * @param upUserInfo
@@ -262,11 +277,6 @@ public class TutorProfileActivity extends Activity {
         // Getting Info
         String name = upUserInfo.getString("userName");
         String email = upUserInfo.getString("userEmail");
-
-        // Getting TutorMeProfile
-        TutorMeProfileTask task = new TutorMeProfileTask(upUserInfo.getString("userEmail"));
-        task.execute();
-        // The task should assign this.tutorProfile
 
 
         // Setting local Variables
@@ -416,11 +426,9 @@ public class TutorProfileActivity extends Activity {
             }
         });
 
-
         alertDialog.show();
-
-
     }
+
 
     public class TutorMeProfileTask extends AsyncTask<Void, Void, Boolean> {
         private final String mEmail;
@@ -443,6 +451,12 @@ public class TutorProfileActivity extends Activity {
                 e.printStackTrace();
             }
             return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            setupUserProfile(tutorProfile);
+            finish();
         }
     }
 
