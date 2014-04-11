@@ -70,6 +70,7 @@ public class BackendProxy implements BackendInterface {
     public boolean register(TutorMeUser user, String password) throws APIResponseException {
         try {
             JSONObject registerRequestBody = user.getJSON();
+            registerRequestBody.put("password", password);
 
             String rawResponse = httpRequest.sendJSONPost(
                     this.uri + "/users/register", registerRequestBody);
