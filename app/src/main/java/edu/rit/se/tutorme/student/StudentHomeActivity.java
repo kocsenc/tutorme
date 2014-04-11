@@ -81,22 +81,42 @@ public class StudentHomeActivity extends Activity {
      * Logs out of the session using the API
      */
     private void logout() {
-        BackendInterface api = new BackendProxy();
-        try {
-            api.logout();
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        } catch (APIResponseException e) {
-            Toast.makeText(getApplicationContext(), "Error Logging Out",
-                    Toast.LENGTH_SHORT).show();
-        }
+        LogoutTask mAuthTask = new LogoutTask();
+        mAuthTask.execute((Void) null);
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
+        /**
+         * Do in background, will use api to try and logout
+         */
         protected Boolean doInBackground(Void... voids) {
-            return null;
+            BackendInterface api = new BackendProxy();
+            try {
+                return api.logout();
+            } catch (APIResponseException e) {
+                return false;
+            }
+        }
+
+        @Override
+        /**
+         * After a api call
+         */
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                goToLoginPage();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error Logging Out",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
