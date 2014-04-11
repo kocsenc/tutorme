@@ -45,6 +45,11 @@ public class StudentHomeActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method is in charge of setting up the view before showing it.
+     * It will get the info from the intent bundle then set any local variables
+     * and finally grab the text fields whose values to change and set them.
+     */
     public void setupUserInfo(Bundle upUserInfo) {
         // Getting Info
         String name = upUserInfo.getString("userName");

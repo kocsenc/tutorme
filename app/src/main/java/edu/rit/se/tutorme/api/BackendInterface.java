@@ -20,7 +20,7 @@ public interface BackendInterface {
      * @param user User object to be registered.
      * @return true if successful, false otherwise.
      */
-    public boolean register(TutorMeUser user) throws APIResponseException;
+    public boolean register(TutorMeUser user, String password) throws APIResponseException;
 
     /**
      * Method to authenticate a user.

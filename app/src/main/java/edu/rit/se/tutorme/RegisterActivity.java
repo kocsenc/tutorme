@@ -17,8 +17,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import edu.rit.se.tutorme.api.BackendInterface;
+import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.UserType;
+import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 public class RegisterActivity extends Activity {
@@ -51,6 +54,7 @@ public class RegisterActivity extends Activity {
         mRegisterView = findViewById(R.id.register_form);
         mStudentButton = (RadioButton) findViewById(R.id.radioButtonStudent);
         mTeacherButton = (RadioButton) findViewById(R.id.radioButtonTeacher);
+        ((RadioGroup) findViewById(R.id.RadioGroup)).check(R.id.radioButtonStudent);
 
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
@@ -74,7 +78,7 @@ public class RegisterActivity extends Activity {
             String userZip = mZipCodeView.toString();
             String userEmail = mEmailView.toString();
             String userPassword = mPasswordView.toString();
-            UserType userType = getRadioButton();
+            UserType userType = UserType.toUserType(getRadioButton());
             mRegTask = new UserRegisterTask(userName, userZip, userEmail, userPassword, userType);
             mRegTask.execute((Void) null);
         }
@@ -116,16 +120,25 @@ public class RegisterActivity extends Activity {
     }
 
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
+        TutorMeUser newUser;
+        String mPassword;
+        BackendInterface api;
 
         UserRegisterTask(String name, String zip, String email, String password, UserType user) {
+            newUser = new TutorMeUser(newUser, mPassword);
+            api = new BackendProxy();
+
 
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            TutorMeUser newUser = new TutorMeUser();
-            this.newUser = newUser;
-
+            try {
+                api. (newUser, mPassword);
+                return true;
+            } catch (AuthenticationException e) {
+                return false;
+            }
             if (newUser == null) {
                 return false;
             } else {
@@ -216,15 +229,26 @@ public class RegisterActivity extends Activity {
             mPasswordView.requestFocus();
 
             return false;
+        } else if (!isRadioSelected()) {
+            return false;
         } else {
             return true;
         }
-
     }
 
-    private int getRadioButton() {
+
+    private String getRadioButton() {
         int radioId = ((RadioGroup) findViewById(R.id.RadioGroup)).getCheckedRadioButtonId();
-        
+        switch (radioId) {
+            case (R.id.radioButtonStudent):
+                return "0";
+            case (R.id.radioButtonTeacher):
+                return "1";
+            default:
+                return "2";
+
+
+        }
     }
 
     @Override
@@ -266,5 +290,9 @@ public class RegisterActivity extends Activity {
 
     private boolean isLastNameValid(String lname) {
         return lname.length() > 0;
+    }
+
+    private boolean isRadioSelected() {
+        return getRadioButton() != "2";
     }
 }
