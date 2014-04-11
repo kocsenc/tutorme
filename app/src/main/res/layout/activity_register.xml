@@ -152,6 +152,7 @@
                 android:focusableInTouchMode="true"
                 android:longClickable="false"
                 android:gravity="center_horizontal|bottom"
+                android:id="@+id/RadioGroup"
                 android:paddingTop="@dimen/activity_vertical_margin">
 
                 <RadioButton
