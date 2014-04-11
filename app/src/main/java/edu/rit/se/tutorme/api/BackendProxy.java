@@ -105,7 +105,7 @@ public class BackendProxy implements BackendInterface {
 
             if (response.get("status").equals("success")) {
                 // Store the authentication pair
-                BackendProxy.email = response.getString("email");
+                BackendProxy.email = email;
                 BackendProxy.token = response.getString("token");
 
                 TutorMeUser loginUser = new TutorMeUser(response.getJSONObject("user"));
