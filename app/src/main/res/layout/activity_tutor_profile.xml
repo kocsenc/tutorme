@@ -118,7 +118,7 @@
                             android:background="@android:color/transparent"
                             android:editable="true"
                             android:padding="10dp"
-                            android:text="I am a super duper tutor and I love my friends! I have worked in a variety of early childhood educations ettings and I specialize in infants and toddler. I have 4 children of my own (twins!) and I love to play with childern"
+                            android:text=""
                             android:textColor="@color/gray"
                             android:textIsSelectable="false" />
                     </LinearLayout>
@@ -161,7 +161,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="15dp"
-                                android:text="6-12"
+                                android:text=""
                                 android:textColor="@color/gray" />
 
                             <Button

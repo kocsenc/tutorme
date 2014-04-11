@@ -25,6 +25,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeProfile;
@@ -266,24 +268,31 @@ public class TutorProfileActivity extends Activity {
         task.execute();
         // The task should assign this.tutorProfile
 
+
         // Setting local Variables
         this.tutorName = name;
         this.tutorEmail = email;
 
-        subjectList = new ArrayList<String>();
-        subjectList.add("butt");
+        //Set fields appropriately
+        subjectList = tutorProfile.getSubjects();
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.setText(tutorProfile.getDescription());
+        TextView gradeField = (TextView) findViewById(R.id.GradeLevelField);
+        gradeField.setText(tutorProfile.getGradeLevels().toString());
 
         // Getting fields and setting test
-        TextView nameField = (TextView) findViewById(R.id.UserNameField);
-        nameField.setText(name);
-        Button b = (Button) findViewById(R.id.addSubjButton);
-        Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-        newSkill.setText(subjectList.get(0));
         LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+        TextView nameField = (TextView) findViewById(R.id.UserNameField);
+        Button b = (Button) findViewById(R.id.addSubjButton);
+        layout.removeView(findViewById(R.id.addSubjButton));
+        nameField.setText(name);
+        for (String subject : subjectList) {
+            Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+            newSkill.setText(subjectList.get(0));
+            layout.addView(newSkill);
+        }
 
         //Have the add button stay at the bottom
-        layout.removeView(findViewById(R.id.addSubjButton));
-        layout.addView(newSkill);
         layout.addView(b);
 
 
