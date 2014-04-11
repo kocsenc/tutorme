@@ -2,25 +2,30 @@ package edu.rit.se.tutorme;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.HashMap;
 import java.util.Dictionary;
 import java.util.Map;
 
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,15 +107,19 @@ public class TutorProfileActivity extends Activity {
         //Create map of all old info
         final Map tutorInfo = getTutorInfo();
 
+        InputMethodManager imm = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
+
         //Create animations
         final Animation animTranslate = AnimationUtils.loadAnimation(this, R.anim.translate);
         final Animation revTranslate = AnimationUtils.loadAnimation(this, R.anim.reverse_translate);
 
         //Enable Bio EditText, change color
         EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.clearFocus();
         bioField.setTextIsSelectable(true);
         bioField.setEnabled(true);
         bioField.setBackgroundResource(android.R.color.black);
+        imm.showSoftInput(bioField, 0);
 
 
         //Hide edit button
@@ -254,7 +263,6 @@ public class TutorProfileActivity extends Activity {
      * @param oldInfo a map of all the old information on the screen
      */
     public void noAction(Map oldInfo) {
-
         EditText t = (EditText) findViewById(R.id.BioField);
         t.setText((CharSequence) oldInfo.get(1));
     }
@@ -266,7 +274,6 @@ public class TutorProfileActivity extends Activity {
      * @param newInfo a map of all the new information on the screen
      */
     public void yesAction(Map newInfo) {
-
         EditText t = (EditText) findViewById(R.id.BioField);
         t.setText((CharSequence) newInfo.get(1));
 
@@ -282,6 +289,54 @@ public class TutorProfileActivity extends Activity {
         EditText t = (EditText) findViewById(R.id.BioField);
         info.put(1, t.getText().toString());
         return info;
+    }
+
+    /**
+     * Pulls up the add subject window
+     *
+     * @param v the button pressed
+     */
+    public void addSubject(final View v) {
+        final ArrayList<String> subjectList = new ArrayList<String>();
+
+        //Creates the alert dialogue
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final EditText input = new EditText(this);
+        alertDialog.setView(input);
+
+        //Setting Dialog Title
+        alertDialog.setTitle("Add subject");
+
+        //Setting Icon to Dialog
+        alertDialog.setIcon(R.drawable.ic_tutorme);
+
+        //Add skills visually, and pass to the server
+        alertDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String skill = input.getText().toString();
+                Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+                subjectList.add(skill);
+                newSkill.setText(skill);
+                LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+                layout.removeView(v);
+                layout.addView(newSkill);
+                layout.addView(v);
+
+                //TODO: Push arraylist to server
+
+            }
+        });
+
+        alertDialog.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+
+        alertDialog.show();
+
+
     }
 
 }
