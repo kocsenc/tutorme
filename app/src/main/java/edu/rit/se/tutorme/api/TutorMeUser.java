@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * Model of the TutorMeUser.
+ *
  * @author Craig Cabrey <craigcabrey@gmail.com>
  */
 public class TutorMeUser {
@@ -25,11 +27,11 @@ public class TutorMeUser {
     }
 
     /**
-     * Optional constructor
-     * @param userType
-     * @param name
-     * @param email
-     * @param postal
+     * Overloaded constructor for the TutorMeUser class.
+     * @param userType type of user
+     * @param name name of user
+     * @param email email of user
+     * @param postal postal code of user
      */
     public TutorMeUser(UserType userType,
                        String name,
@@ -42,6 +44,11 @@ public class TutorMeUser {
         this.profile = new TutorMeProfile();
     }
 
+    /**
+     * Method to load data into the object
+     * if object was constructed using the
+     * JSONObject constructor.
+     */
     public void load() {
         try {
             this.userType = UserType.toUserType(this.rawData.getString("type"));
@@ -60,29 +67,62 @@ public class TutorMeUser {
 
     /**
      * Getter for userType.
-     * @return the userType
+     * @return the user's type
      */
     public UserType getUserType() {
         return this.userType;
     }
 
+    /**
+     * Getter for name.
+     * @return the user's name.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for email.
+     * @return the user's email
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     * Getter for postal address.
+     * @return the user's postal address.
+     */
     public String getPostal() {
         return this.postal;
     }
 
+    /**
+     * Getter for tutor profile.
+     * @return the user's profile.
+     */
     public TutorMeProfile getProfile() {
         return this.profile;
     }
 
+    /**
+     * Generate JSON object representation of the object.
+     * @return JSON representation of the object
+     */
     public JSONObject getJSON() {
-        return this.rawData;
+        JSONObject rawData = new JSONObject();
+
+        try {
+            rawData.put("type", this.userType.toString());
+            rawData.put("name", this.name);
+            rawData.put("email", this.email);
+            rawData.put("postal", this.postal);
+
+            return rawData;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
