@@ -48,6 +48,7 @@ public class SearchTutorsActivity extends ListActivity {
             //TODO: Perform search
             searchTask = new SearchUserTask();
             searchTask.execute();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -86,12 +87,10 @@ public class SearchTutorsActivity extends ListActivity {
             BackendInterface api = new BackendProxy();
             try {
                 results = api.search(query);
-                adapter.notifyDataSetChanged();
                 return true;
             } catch (TokenMismatchException e) {
                 e.printStackTrace();
                 results.clear();
-                adapter.notifyDataSetChanged();
                 return false;
             }
 
