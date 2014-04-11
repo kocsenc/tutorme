@@ -67,7 +67,7 @@ public class BackendProxy implements BackendInterface {
      * @return true if successful, false otherwise.
      */
     @Override
-    public boolean register(TutorMeUser user) throws APIResponseException {
+    public boolean register(TutorMeUser user, String password) throws APIResponseException {
         try {
             JSONObject registerRequestBody = user.getJSON();
 
