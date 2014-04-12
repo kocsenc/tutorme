@@ -238,12 +238,13 @@ public class BackendProxy implements BackendInterface {
             getProfileRequestBody.put("email", BackendProxy.email);
             getProfileRequestBody.put("token", BackendProxy.token);
 
-            String rawResponse = httpRequest.sendPost(this.uri + "/profiles/" + email,
-                    getProfileRequestBody.toString());
+            String rawResponse = httpRequest.sendJSONPost(this.uri + "/profiles/" + email, getProfileRequestBody);
             JSONObject response = new JSONObject(rawResponse);
 
             if (response.get("status").equals("success")) {
-                return new TutorMeProfile((JSONObject) response.get("profile"));
+                TutorMeProfile retVal = new TutorMeProfile(response.getJSONObject("profile"));
+                retVal.load();
+                return retVal;
             } else {
                 if (response.get("message").equals("user is not a tutor")) {
                     throw new InvalidParametersException(response.getString("message"));
