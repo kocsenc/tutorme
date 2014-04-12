@@ -266,6 +266,26 @@ public class TutorProfileActivity extends Activity {
      */
     public void setupUserProfile(TutorMeProfile tutorProfile) {
 
+        //Set fields appropriately
+        subjectList = tutorProfile.getSubjects();
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+        bioField.setText(tutorProfile.getDescription());
+        TextView gradeField = (TextView) findViewById(R.id.GradeLevelField);
+        gradeField.setText(tutorProfile.getGradeLevels().toString());
+
+        // Getting fields and setting test
+        LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+        Button b = (Button) findViewById(R.id.addSubjButton);
+        layout.removeView(findViewById(R.id.addSubjButton));
+
+        for (String subject : subjectList) {
+            Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+            newSkill.setText(subjectList.get(0));
+            layout.addView(newSkill);
+        }
+
+        //Have the add button stay at the bottom
+        layout.addView(b);
     }
 
     /**
@@ -283,27 +303,8 @@ public class TutorProfileActivity extends Activity {
         this.tutorName = name;
         this.tutorEmail = email;
 
-        //Set fields appropriately
-        subjectList = tutorProfile.getSubjects();
-        EditText bioField = (EditText) findViewById(R.id.BioField);
-        bioField.setText(tutorProfile.getDescription());
-        TextView gradeField = (TextView) findViewById(R.id.GradeLevelField);
-        gradeField.setText(tutorProfile.getGradeLevels().toString());
-
-        // Getting fields and setting test
-        LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
         TextView nameField = (TextView) findViewById(R.id.UserNameField);
-        Button b = (Button) findViewById(R.id.addSubjButton);
-        layout.removeView(findViewById(R.id.addSubjButton));
         nameField.setText(name);
-        for (String subject : subjectList) {
-            Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-            newSkill.setText(subjectList.get(0));
-            layout.addView(newSkill);
-        }
-
-        //Have the add button stay at the bottom
-        layout.addView(b);
 
 
     }
