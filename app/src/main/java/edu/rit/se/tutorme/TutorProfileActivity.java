@@ -277,11 +277,12 @@ public class TutorProfileActivity extends Activity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
         Button b = (Button) findViewById(R.id.addSubjButton);
         layout.removeView(findViewById(R.id.addSubjButton));
-
-        for (String subject : subjectList) {
-            Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-            newSkill.setText(subjectList.get(0));
-            layout.addView(newSkill);
+        if (subjectList != null) {
+            for (String subject : subjectList) {
+                Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+                newSkill.setText(subjectList.get(0));
+                layout.addView(newSkill);
+            }
         }
 
         //Have the add button stay at the bottom
