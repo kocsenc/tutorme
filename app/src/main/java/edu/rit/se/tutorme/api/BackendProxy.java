@@ -238,7 +238,7 @@ public class BackendProxy implements BackendInterface {
             getProfileRequestBody.put("email", BackendProxy.email);
             getProfileRequestBody.put("token", BackendProxy.token);
 
-            String rawResponse = httpRequest.sendJSONPost(this.uri + "/profiles/" + email, getProfileRequestBody);
+            String rawResponse = httpRequest.sendJSONPost(this.uri + "/profiles/get/" + email, getProfileRequestBody);
             JSONObject response = new JSONObject(rawResponse);
 
             if (response.get("status").equals("success")) {
