@@ -266,27 +266,38 @@ public class TutorProfileActivity extends Activity {
      */
     public void setupUserProfile(TutorMeProfile tutorProfile) {
 
-        //Set fields appropriately
-        subjectList = tutorProfile.getSubjects();
-        EditText bioField = (EditText) findViewById(R.id.BioField);
-        bioField.setText(tutorProfile.getDescription());
-        TextView gradeField = (TextView) findViewById(R.id.GradeLevelField);
-        gradeField.setText(tutorProfile.getGradeLevels().toString());
-
-        // Getting fields and setting test
+        //Grab views from screen
         LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
         Button b = (Button) findViewById(R.id.addSubjButton);
-        layout.removeView(findViewById(R.id.addSubjButton));
-        if (subjectList != null) {
-            for (String subject : subjectList) {
-                Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-                newSkill.setText(subjectList.get(0));
-                layout.addView(newSkill);
+        EditText bioField = (EditText) findViewById(R.id.BioField);
+
+        //Set views appropriately
+        if (tutorProfile != null) {
+            if (tutorProfile.getSubjects() != null) {
+                subjectList = tutorProfile.getSubjects();
             }
+
+            if (tutorProfile.getDescription() != null) {
+                bioField.setText(tutorProfile.getDescription());
+            }
+
+            TextView gradeField = (TextView) findViewById(R.id.GradeLevelField);
+            gradeField.setText(tutorProfile.getGradeLevels().toString());
+
+            // Getting fields and setting test
+            layout.removeView(findViewById(R.id.addSubjButton));
+            if (subjectList != null) {
+                for (String subject : subjectList) {
+                    Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+                    newSkill.setText(subjectList.get(0));
+                    layout.addView(newSkill);
+                }
+            }
+            //Have the add button stay at the bottom
+            layout.addView(b);
         }
 
-        //Have the add button stay at the bottom
-        layout.addView(b);
+
     }
 
     /**
@@ -331,17 +342,23 @@ public class TutorProfileActivity extends Activity {
         LinearLayout subjects = (LinearLayout) findViewById(R.id.subjectList);
         Button addSubjButton = (Button) findViewById(R.id.addSubjButton);
         subjects.removeAllViews();
-        for (String subject : arraySubjects) {
-            Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-            newSkill.setText(subject);
-            LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
-            layout.addView(newSkill);
+        if (arraySubjects != null) {
+            for (String subject : arraySubjects) {
+                Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+                newSkill.setText(subject);
+                LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+                layout.addView(newSkill);
+            }
         }
         subjects.addView(addSubjButton);
 
         //Rollback the bio
         EditText t = (EditText) findViewById(R.id.BioField);
-        t.setText((CharSequence) arrayBio.get(0));
+        if (arrayBio != null) {
+            t.setText((CharSequence) arrayBio.get(0));
+        } else {
+            t.setText("");
+        }
     }
 
     /**
