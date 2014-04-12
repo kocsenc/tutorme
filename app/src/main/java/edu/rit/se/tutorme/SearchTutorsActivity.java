@@ -31,7 +31,7 @@ public class SearchTutorsActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_tutors);
-        adapter = new ArrayAdapter<TutorMeUser>(this, android.R.layout.simple_list_item_1, results);
+        adapter = new ArrayAdapter<TutorMeUser>(this, R.layout.list_view_item, results);
         setListAdapter(adapter);
 
         ActionBar actionBar = getActionBar();

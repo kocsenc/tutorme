@@ -282,7 +282,12 @@ public class TutorProfileActivity extends Activity {
             }
 
             TextView gradeField = (TextView) findViewById(R.id.GradeLevelField);
-            gradeField.setText(tutorProfile.getGradeLevels().toString());
+            if (tutorProfile.getGradeLevels() != null) {
+                for (String s : tutorProfile.getGradeLevels()) {
+                    gradeField.setText(s + ", ");
+                }
+            }
+
 
             // Getting fields and setting test
             layout.removeView(findViewById(R.id.addSubjButton));

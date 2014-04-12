@@ -4,18 +4,12 @@
     android:layout_height="fill_parent"
     android:background="@color/light_black">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/student_rounded_bg"/>
-    </ScrollView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/student_rounded_bg"/>
 
 </LinearLayout>
