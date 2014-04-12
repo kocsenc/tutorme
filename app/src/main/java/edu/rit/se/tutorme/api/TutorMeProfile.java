@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -82,11 +83,19 @@ public class TutorMeProfile {
         return description;
     }
 
+    public void setDescription(String d) {
+        description = d;
+    }
+
     public ArrayList<String> getGradeLevels() {
         return gradeLevels;
     }
 
     public ArrayList<String> getSubjects() {
         return subjects;
+    }
+
+    public void setSubjects(ArrayList<String> s) {
+        subjects = s;
     }
 }
