@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import edu.rit.se.tutorme.LoginActivity;
 import edu.rit.se.tutorme.R;
+import edu.rit.se.tutorme.SearchTutorsActivity;
 import edu.rit.se.tutorme.TutorProfileActivity;
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
@@ -36,6 +37,7 @@ public class StudentHomeActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.student_home, menu);
         getMenuInflater().inflate(R.menu.student_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -49,6 +51,8 @@ public class StudentHomeActivity extends Activity {
 
         switch (id) {
             case R.id.search_action_bar:
+                Intent intent = new Intent(this, SearchTutorsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.logout_action_bar:
                 logout();
