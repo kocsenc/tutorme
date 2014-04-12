@@ -127,4 +127,13 @@ public class TutorMeUser {
 
         return null;
     }
+
+    /**
+     * toString method for the TutorMeUser class.
+     *
+     * @return string representation of the object
+     */
+    public String toString() {
+        return this.name;
+    }
 }
