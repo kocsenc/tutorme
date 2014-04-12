@@ -475,7 +475,6 @@ public class TutorProfileActivity extends Activity {
         @Override
         protected void onPostExecute(final Boolean success) {
             setupUserProfile(tutorProfile);
-            finish();
         }
     }
 

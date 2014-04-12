@@ -10,7 +10,7 @@ import org.json.JSONObject;
  */
 public class TutorMeUser {
 
-    private JSONObject rawData;
+    private JSONObject rawData = null;
     private UserType userType;
     private String name;
     private String email;
@@ -57,9 +57,11 @@ public class TutorMeUser {
             this.email = this.rawData.getString("email");
             this.postal = this.rawData.getString("postal");
 
-            if (this.userType == UserType.Tutor) {
-                this.profile = new TutorMeProfile(this.rawData.getJSONObject("profile"));
-                this.profile.load();
+            if (this.userType == UserType.Tutor && this.rawData != null) {
+                if (this.rawData.has("profile")) {
+                    this.profile = new TutorMeProfile(this.rawData.getJSONObject("profile"));
+                    this.profile.load();
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
