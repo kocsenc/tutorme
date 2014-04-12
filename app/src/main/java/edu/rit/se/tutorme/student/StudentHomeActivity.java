@@ -1,11 +1,16 @@
 package edu.rit.se.tutorme.student;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +44,14 @@ public class StudentHomeActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.student_home, menu);
         getMenuInflater().inflate(R.menu.student_menu, menu);
+
+        String pkg = "edu.rit.se.tutorme";
+        String file = "edu.rit.se.tutorme.SearchTutorsActivity";
+        ComponentName name = new ComponentName(pkg, file);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_action_bar).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(name));
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -51,8 +64,8 @@ public class StudentHomeActivity extends Activity {
 
         switch (id) {
             case R.id.search_action_bar:
-                Intent intent = new Intent(this, SearchTutorsActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this, SearchTutorsActivity.class);
+//                startActivity(intent);
                 return true;
             case R.id.logout_action_bar:
                 logout();

@@ -7,6 +7,12 @@
         android:icon="@drawable/ic_tutorme"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="android.app.searchable"
+            android:value="edu.rit.se.tutorme.SearchTutorsActivity"
+            android:resource="@xml/searchable" />
+
         <activity
             android:name="edu.rit.se.tutorme.LoginActivity"
             android:label="@string/title_activity_login"
@@ -22,13 +28,15 @@
             android:label="@string/title_activity_tutor_profile" />
         <activity
             android:name="edu.rit.se.tutorme.SearchTutorsActivity"
-            android:label="@string/title_activity_search_tutors">
+            android:label="@string/title_activity_search_tutors"
+            android:parentActivityName=".student.StudentHomeActivity">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchTutorsActivity"
                 android:resource="@xml/searchable" />
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
+                <category android:name="android.intent.categoty.DEFAULT"/>
             </intent-filter>
 
             <meta-data
