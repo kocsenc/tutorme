@@ -128,7 +128,8 @@ public class StudentHomeActivity extends Activity {
          */
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return this.logoutCommand.execute(new BackendProxy());
+            this.logoutCommand.execute(new BackendProxy());
+            return (Boolean) this.logoutCommand.getResult();
         }
 
         /**

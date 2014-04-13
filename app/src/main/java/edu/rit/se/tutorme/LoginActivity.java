@@ -35,6 +35,8 @@ import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.UserType;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
+import edu.rit.se.tutorme.commands.Command;
+import edu.rit.se.tutorme.commands.LoginCommand;
 import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 /**
@@ -292,25 +294,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        /**
+         *
+         */
+        private Command loginCommand;
+
         private final String mEmail;
         private final String mPassword;
         private TutorMeUser user = null;
 
         UserLoginTask(String email, String password) {
+            this.loginCommand = new LoginCommand(email, password);
             mEmail = email;
             mPassword = password;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            BackendInterface api = new BackendProxy();
+            this.loginCommand.execute(new BackendProxy());
+            this.user = (TutorMeUser) this.loginCommand.getResult();
 
-            try {
-                this.user = api.login(mEmail, mPassword);
-                return true;
-            } catch (AuthenticationException e) {
-                return false;
-            }
+            return this.user != null ? true : false;
         }
 
         @Override

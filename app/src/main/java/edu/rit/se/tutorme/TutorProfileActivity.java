@@ -290,6 +290,8 @@ public class TutorProfileActivity extends Activity {
             if (subjectList != null) {
                 for (String subject : subjectList) {
                     Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
+                    newSkill.setClickable(false);
+                    newSkill.setFocusable(false);
                     newSkill.setText(subject);
                     layout.addView(newSkill);
                 }

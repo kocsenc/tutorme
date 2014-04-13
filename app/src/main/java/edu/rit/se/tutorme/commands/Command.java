@@ -10,8 +10,14 @@ public interface Command {
     /**
      * Executes the command.
      *
-     * @param data
-     * @return true if execution successful, false otherwise
+     * @param api API implementation object.
      */
-    public boolean execute(Object data);
+    public void execute(Object api);
+
+    /**
+     * Get result of command execution.
+     *
+     * @return Generic object of result.
+     */
+    public Object getResult();
 }

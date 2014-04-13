@@ -11,21 +11,35 @@ import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 public class LogoutCommand implements Command {
 
     /**
+     * Result of the request.
+     */
+    private boolean requestResult;
+
+    /**
      * Execute the logout call.
      *
-     * @param o
-     * @return true if execution successful, false otherwise
+     * @param api API implementation object
      */
     @Override
-    public boolean execute(Object o) {
-        if (o instanceof BackendInterface) {
+    public void execute(Object api) {
+        if (api instanceof BackendInterface) {
             try {
-                return ((BackendInterface) o).logout();
+                this.requestResult = ((BackendInterface) api).logout();
             } catch (APIResponseException e) {
-                return false;
+                this.requestResult = false;
             }
         } else {
-            return false;
+            this.requestResult = false;
         }
+    }
+
+    /**
+     * Get the result of the request.
+     *
+     * @return result of the request
+     */
+    @Override
+    public Object getResult() {
+        return this.requestResult;
     }
 }
