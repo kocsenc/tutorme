@@ -22,7 +22,6 @@ import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 
-
 public class StudentHomeActivity extends Activity {
 
     private String studentName;
@@ -37,7 +36,6 @@ public class StudentHomeActivity extends Activity {
         Bundle userInfo = intent.getExtras();
         setupUserInfo(userInfo);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
