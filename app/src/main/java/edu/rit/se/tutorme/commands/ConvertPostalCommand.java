@@ -17,6 +17,11 @@ public class ConvertPostalCommand implements Command {
     private String postal;
 
     /**
+     * Status of command execution.
+     */
+    private boolean status;
+
+    /**
      * Converted Location object.
      */
     private Location result;
@@ -27,6 +32,7 @@ public class ConvertPostalCommand implements Command {
      */
     public ConvertPostalCommand(String postal) {
         this.postal = postal;
+        this.status = false;
     }
 
     /**
@@ -40,9 +46,18 @@ public class ConvertPostalCommand implements Command {
             try {
                 ((BackendInterface) api).convertPostal(this.postal);
             } catch (TokenMismatchException e) {
-                e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Get status of command execution.
+     *
+     * @return true if successful, false otherwise
+     */
+    @Override
+    public boolean getStatus() {
+        return this.status;
     }
 
     /**

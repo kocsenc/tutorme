@@ -15,10 +15,16 @@ public class LoginCommand implements Command {
      * User email of the user attempting login.
      */
     private String userEmail;
+
     /**
      * User password of the user attempting login.
      */
     private String userPassword;
+
+    /**
+     * Status of command execution.
+     */
+    private boolean status;
 
     /**
      * User resultant from login request.
@@ -33,6 +39,7 @@ public class LoginCommand implements Command {
     public LoginCommand(String userEmail, String userPassword) {
         this.userEmail = userEmail;
         this.userPassword = userPassword;
+        this.status = false;
     }
 
     /**
@@ -47,8 +54,17 @@ public class LoginCommand implements Command {
                 this.user = ((BackendInterface) api).login(this.userEmail, this.userPassword);
             } catch (AuthenticationException e) {
             }
-        } else {
         }
+    }
+
+    /**
+     * Get status of command execution.
+     *
+     * @return true if successful, false otherwise
+     */
+    @Override
+    public boolean getStatus() {
+        return this.status;
     }
 
     /**

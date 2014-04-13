@@ -15,6 +15,13 @@ public interface Command {
     public void execute(Object api);
 
     /**
+     * Get status of command execution.
+     *
+     * @return true if successful, false otherwise
+     */
+    public boolean getStatus();
+
+    /**
      * Get result of command execution.
      *
      * @return Generic object of result.

@@ -22,6 +22,8 @@ import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.UserType;
 import edu.rit.se.tutorme.api.exceptions.APIResponseException;
+import edu.rit.se.tutorme.commands.Command;
+import edu.rit.se.tutorme.commands.RegisterCommand;
 
 public class RegisterActivity extends Activity {
 
@@ -201,8 +203,6 @@ public class RegisterActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
         return true;
     }
 
@@ -248,42 +248,64 @@ public class RegisterActivity extends Activity {
      * The async task to register a user.
      */
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
-        TutorMeUser newUser;
-        String mPassword;
-        BackendInterface api;
 
-        UserRegisterTask(String name, String zip, String email, String password, UserType user) {
-            newUser = new TutorMeUser(user, name, email, zip);
-            mPassword = password;
-            api = new BackendProxy();
+        /**
+         * Command to be executed.
+         */
+        private Command registerCommand;
 
+        /**
+         * User to be registered.
+         */
+        private TutorMeUser user;
 
+        /**
+         * Constructor for the UserRegisterTask class.
+         *
+         * @param name of the user
+         * @param zip of the user
+         * @param email of the user
+         * @param password of the user
+         * @param type of the user
+         */
+        public UserRegisterTask(String name, String zip, String email, String password, UserType type) {
+            this.user = new TutorMeUser(type, name, email, zip);
+            this.registerCommand = new RegisterCommand(user, password);
         }
 
+        /**
+         * Executes command asynchronously.
+         *
+         * @param params
+         * @return true if successful, false otherwise
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                api.register(newUser, mPassword);
-
-                return true;
-            } catch (APIResponseException e) {
-                return false;
-            }
+            this.registerCommand.execute(new BackendProxy());
+            return this.registerCommand.getStatus();
         }
 
+        /**
+         * Method ran post-execution of command.
+         *
+         * @param success
+         */
         @Override
         protected void onPostExecute(final Boolean success) {
             mRegTask = null;
             showProgress(false);
 
             if (success) {
-                onSuccessRegister(this.newUser);
+                onSuccessRegister(this.user);
                 finish();
             } else {
                 finish();
             }
         }
 
+        /**
+         * Method ran on cancellation of task.
+         */
         @Override
         protected void onCancelled() {
             mRegTask = null;
