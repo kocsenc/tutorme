@@ -30,6 +30,8 @@ import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeProfile;
 import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
+import edu.rit.se.tutorme.commands.Command;
+import edu.rit.se.tutorme.commands.LogoutCommand;
 
 public class TutorProfileActivity extends Activity {
     String tutorName;
@@ -104,10 +106,16 @@ public class TutorProfileActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.logout_action_bar:
+                logout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -476,6 +484,61 @@ public class TutorProfileActivity extends Activity {
         @Override
         protected void onPostExecute(final Boolean success) {
             setupUserProfile(tutorProfile);
+        }
+    }
+
+    /**
+     * Logs out of the session using the API
+     */
+    private void logout() {
+        LogoutTask mAuthTask = new LogoutTask();
+        mAuthTask.execute((Void) null);
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
+
+        /**
+         * Command to be executed.
+         */
+        private Command logoutCommand;
+
+        /**
+         * Default constructor for the LogoutTask.
+         */
+        public LogoutTask() {
+            this.logoutCommand = new LogoutCommand();
+        }
+
+        /**
+         * Execute logout command.
+         *
+         * @return return of logout execution
+         */
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            this.logoutCommand.execute(new BackendProxy());
+            return (Boolean) this.logoutCommand.getResult();
+        }
+
+        /**
+         * After a api call
+         *
+         * @param success result of execution
+         */
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                goToLoginPage();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error Logging Out",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

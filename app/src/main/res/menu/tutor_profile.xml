@@ -1,2 +1,11 @@
-<menu xmlns:tools="http://schemas.android.com/tools"
-    tools:context="edu.rit.se.tutorme.TutorProfileActivity"></menu>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="edu.rit.se.tutorme.TutorProfileActivity">
+
+    <item
+        android:id="@+id/logout_action_bar"
+        android:orderInCategory="2"
+        android:showAsAction="collapseActionView"
+        android:title="Logout" />
+
+</menu>
