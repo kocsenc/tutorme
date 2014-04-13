@@ -21,6 +21,8 @@ import edu.rit.se.tutorme.TutorProfileActivity;
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.exceptions.APIResponseException;
+import edu.rit.se.tutorme.commands.Command;
+import edu.rit.se.tutorme.commands.LogoutCommand;
 
 public class StudentHomeActivity extends Activity {
 
@@ -107,23 +109,34 @@ public class StudentHomeActivity extends Activity {
 
     private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
 
-        @Override
         /**
-         * Do in background, will use api to try and logout
+         * Command to be executed.
          */
-        protected Boolean doInBackground(Void... voids) {
-            BackendInterface api = new BackendProxy();
-            try {
-                return api.logout();
-            } catch (APIResponseException e) {
-                return false;
-            }
+        private Command logoutCommand;
+
+        /**
+         * Default constructor for the LogoutTask.
+         */
+        public LogoutTask() {
+            this.logoutCommand = new LogoutCommand();
         }
 
+        /**
+         * Execute logout command.
+         *
+         * @return return of logout execution
+         */
         @Override
+        protected Boolean doInBackground(Void... voids) {
+            return this.logoutCommand.execute(new BackendProxy());
+        }
+
         /**
          * After a api call
+         *
+         * @param success result of execution
          */
+        @Override
         protected void onPostExecute(final Boolean success) {
             if (success) {
                 goToLoginPage();
