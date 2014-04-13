@@ -96,7 +96,7 @@ public class TutorProfileActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.student_menu, menu);
+        getMenuInflater().inflate(R.menu.tutor_profile, menu);
         return true;
     }
 

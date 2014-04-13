@@ -1,6 +1,8 @@
 package edu.rit.se.tutorme.api.exceptions;
 
 /**
+ * Exception to represent a server-side token mismatch error.
+ *
  * @author Craig Cabrey
  */
 public class TokenMismatchException extends AuthenticationException {
@@ -12,5 +14,14 @@ public class TokenMismatchException extends AuthenticationException {
      */
     public TokenMismatchException(String message) {
         super(message);
+    }
+
+    /**
+     * Get the exception message.
+     *
+     * @return the exception message
+     */
+    public String getMessage() {
+        return super.getMessage();
     }
 }

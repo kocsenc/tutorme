@@ -38,13 +38,13 @@ public class LoginCommand implements Command {
     /**
      * Execute the login command.
      *
-     * @param data API implementation object
+     * @param api API implementation object
      */
     @Override
-    public void execute(Object data) {
-        if (data instanceof BackendInterface) {
+    public void execute(Object api) {
+        if (api instanceof BackendInterface) {
             try {
-                this.user = ((BackendInterface) data).login(this.userEmail, this.userPassword);
+                this.user = ((BackendInterface) api).login(this.userEmail, this.userPassword);
             } catch (AuthenticationException e) {
             }
         } else {
