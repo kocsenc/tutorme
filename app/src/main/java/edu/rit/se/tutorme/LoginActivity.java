@@ -296,15 +296,32 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         /**
-         *
+         * Command to be executed.
          */
         private Command loginCommand;
 
+        /**
+         * User's email.
+         */
         private final String mEmail;
+
+        /**
+         * User's password.
+         */
         private final String mPassword;
+
+        /**
+         * User object.
+         */
         private TutorMeUser user = null;
 
-        UserLoginTask(String email, String password) {
+        /**
+         * Constructor for the UserLoginTask class.
+         *
+         * @param email user's email
+         * @param password user's password
+         */
+        public UserLoginTask(String email, String password) {
             this.loginCommand = new LoginCommand(email, password);
             mEmail = email;
             mPassword = password;
