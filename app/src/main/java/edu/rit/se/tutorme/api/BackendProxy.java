@@ -10,6 +10,7 @@ import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
+import edu.rit.se.tutorme.util.Location;
 
 /**
  * Concrete implementation of the BackendInterface.
@@ -298,5 +299,18 @@ public class BackendProxy implements BackendInterface {
         } catch (JSONException e) {
             return null;
         }
+    }
+
+    /**
+     * Method to convert a postal code into an expanded Location.
+     *
+     * @param postalCode originating postal code to be converted
+     * @return a Location of the converted postal code
+     * @throws TokenMismatchException Thrown if internal token state causes a token mismatch
+     * server side.
+     */
+    @Override
+    public Location convertPostal(String postalCode) throws TokenMismatchException {
+        return null;
     }
 }
