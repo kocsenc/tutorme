@@ -45,20 +45,19 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mZipCodeView = (EditText) findViewById(R.id.zipcode);
-        mFNameView = (EditText) findViewById(R.id.prompt_fname);
-        mLNameView = (EditText) findViewById(R.id.prompt_lname);
-        mPasswordRetype = (EditText) findViewById(R.id.password_retype);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mProgressView = findViewById(R.id.login_progress);
-        mRegisterView = findViewById(R.id.register_form);
-        mStudentButton = (RadioButton) findViewById(R.id.radioButtonStudent);
-        mTeacherButton = (RadioButton) findViewById(R.id.radioButtonTeacher);
-        ((RadioGroup) findViewById(R.id.RadioGroup)).check(R.id.radioButtonStudent);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.emailField);
+        mZipCodeView = (EditText) findViewById(R.id.postalField);
+        mFNameView = (EditText) findViewById(R.id.firstNameField);
+        mLNameView = (EditText) findViewById(R.id.lastNameField);
+        mPasswordView = (EditText) findViewById(R.id.passwordField);
+        mPasswordRetype = (EditText) findViewById(R.id.passwordConfirmField);
+        mProgressView = findViewById(R.id.loginProgessIndicator);
+        mRegisterView = findViewById(R.id.registerFormLayout);
+        mStudentButton = (RadioButton) findViewById(R.id.studentRadioButton);
+        mTeacherButton = (RadioButton) findViewById(R.id.tutorRadioButton);
 
         //Add action listener to button
-        Button mEmailSignInButton = (Button) findViewById(R.id.register_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.registerButton);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,11 +187,11 @@ public class RegisterActivity extends Activity {
      * @return 0 if student, 1 if teacher.
      */
     private String getRadioButton() {
-        int radioId = ((RadioGroup) findViewById(R.id.RadioGroup)).getCheckedRadioButtonId();
+        int radioId = ((RadioGroup) findViewById(R.id.userTypeRadioGroup)).getCheckedRadioButtonId();
         switch (radioId) {
-            case (R.id.radioButtonStudent):
+            case (R.id.studentRadioButton):
                 return "0";
-            case (R.id.radioButtonTeacher):
+            case (R.id.tutorRadioButton):
                 return "1";
             //Should never happen
             default:
@@ -219,7 +218,7 @@ public class RegisterActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    // checks th email validation
+    // checks the email validation
     private boolean isEmailValid(String email) {
         return email.contains("@");
 
@@ -236,17 +235,17 @@ public class RegisterActivity extends Activity {
     }
 
     // check for a last name
-    private boolean isFirstNameValid(String fname) {
-        return fname.length() > 0;
+    private boolean isFirstNameValid(String firstName) {
+        return firstName.length() > 0;
     }
 
     // check for a first name
-    private boolean isLastNameValid(String lname) {
-        return lname.length() > 0;
+    private boolean isLastNameValid(String lastName) {
+        return lastName.length() > 0;
     }
 
     /*
-        the async task to register a user
+     * The async task to register a user.
      */
     public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
         TutorMeUser newUser;
@@ -290,7 +289,6 @@ public class RegisterActivity extends Activity {
             mRegTask = null;
             showProgress(false);
         }
-
 
     }
 }

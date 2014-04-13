@@ -7,7 +7,7 @@
     tools:context="edu.rit.se.tutorme.RegisterActivity">
 
     <ProgressBar
-        android:id="@+id/login_progress"
+        android:id="@+id/loginProgessIndicator"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,22 +15,23 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:indeterminate="false"
+        android:focusableInTouchMode="false" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:id="@+id/registerScrollView">
 
         <LinearLayout
-            android:id="@+id/register_form"
+            android:id="@+id/registerFormLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:focusable="false"
             android:baselineAligned="false"
             android:weightSum="1"
-            android:gravity="center_horizontal"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -44,8 +45,8 @@
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:id="@+id/icon_signin"
-                    android:src="@drawable/ic_tutorme"
+                    android:id="@+id/appLogo"
+                    android:src="@drawable/logo"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/signinicon"
                     android:visibility="visible"
@@ -56,39 +57,52 @@
 
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/prompt_fname"
+            <AutoCompleteTextView
+                android:id="@+id/emailField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_fname"
-                android:inputType="text"
+                android:hint="@string/emailFieldHint"
+                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/red"
-                android:textColorHint="@color/red"
-                android:linksClickable="false"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:maxLength="255" />
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:maxLength="255"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
 
             <EditText
-                android:id="@+id/prompt_lname"
+                android:id="@+id/firstNameField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_lname"
+                android:hint="@string/firstNameFieldHint"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/light_gray"
                 android:textColorHint="@color/gray"
                 android:linksClickable="false"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:maxLength="255" />
+                android:maxLength="255"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
 
             <EditText
-                android:id="@+id/zipcode"
+                android:id="@+id/lastNameField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_zipcode"
+                android:hint="@string/lastNameFieldHint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/light_gray"
+                android:textColorHint="@color/gray"
+                android:linksClickable="false"
+                android:maxLength="255"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+            <EditText
+                android:id="@+id/postalField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/postalFieldHint"
                 android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -97,27 +111,14 @@
                 android:textColorHint="@color/gray"
                 android:linksClickable="false"
                 android:autoText="false"
-                android:paddingBottom="@dimen/activity_vertical_margin" />
-
-            <AutoCompleteTextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/light_gray"
-                android:textColorHint="@color/gray"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:maxLength="255" />
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/passwordField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
-                android:imeActionId="@+id/password"
+                android:imeActionId="@+id/passwordField"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
@@ -125,15 +126,15 @@
                 android:singleLine="true"
                 android:textColor="@color/light_gray"
                 android:textColorHint="@color/gray"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:maxLength="255" />
+                android:maxLength="255"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
 
             <EditText
-                android:id="@+id/password_retype"
+                android:id="@+id/passwordConfirmField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/retype_password"
-                android:imeActionId="@+id/password_retype"
+                android:imeActionId="@+id/passwordConfirmField"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
@@ -141,8 +142,8 @@
                 android:singleLine="true"
                 android:textColor="@color/light_gray"
                 android:textColorHint="@color/gray"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:maxLength="255" />
+                android:maxLength="255"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
 
             <RadioGroup
                 android:layout_width="fill_parent"
@@ -152,36 +153,45 @@
                 android:focusableInTouchMode="true"
                 android:longClickable="false"
                 android:gravity="center_horizontal|bottom"
-                android:id="@+id/RadioGroup"
-                android:paddingTop="@dimen/activity_vertical_margin">
+                android:id="@+id/userTypeRadioGroup"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:checkedButton="@+id/studentRadioButton">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/student_button"
-                    android:id="@+id/radioButtonStudent"
-                    android:textColor="@color/light_gray" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:baselineAligned="false"
+                    android:gravity="center_horizontal">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/teacher_button"
-                    android:id="@+id/radioButtonTeacher"
-                    android:textColor="@color/light_gray" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/studentRadioButtonText"
+                        android:id="@+id/studentRadioButton"
+                        android:textColor="@color/light_gray"
+                        android:enabled="true" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tutorRadioButtonText"
+                        android:id="@+id/tutorRadioButton"
+                        android:textColor="@color/light_gray"
+                        android:enabled="true" />
+                </LinearLayout>
             </RadioGroup>
 
             <Button
-                android:id="@+id/register_button"
+                android:id="@+id/registerButton"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/register_button"
-                android:textStyle="bold"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/registerButtonText"
                 android:background="@color/red"
                 android:clickable="true"
-                android:textColor="@color/gray"
-                android:textSize="18sp" />
+                android:textColor="@color/light_gray" />
 
         </LinearLayout>
     </ScrollView>

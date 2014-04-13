@@ -12,10 +12,12 @@
     <string name="error_no_name">Please enter your name.</string>
     <string name="error_password">Passwords do not match.</string>
     <string name="retype_password">Confirm Password</string>
-    <string name="prompt_zipcode">Zip Code</string>
-    <string name="prompt_fname">First Name</string>
-    <string name="prompt_lname">Last Name</string>
-    <string name="register_button">Register</string>
-    <string name="student_button">Student</string>
-    <string name="teacher_button">Tutor</string>
+    <string name="emailFieldHint">Email</string>
+    <string name="firstNameFieldHint">First Name</string>
+    <string name="lastNameFieldHint">Last Name</string>
+    <string name="postalFieldHint">Zip Code</string>
+    <string name="studentRadioButtonText">Student</string>
+    <string name="tutorRadioButtonText">Tutor</string>
+    <string name="registerButtonText">Register</string>
+
 </resources>
