@@ -25,14 +25,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeProfile;
 import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
-
 
 public class TutorProfileActivity extends Activity {
     String tutorName;
@@ -288,21 +285,18 @@ public class TutorProfileActivity extends Activity {
                 }
             }
 
-
             // Getting fields and setting test
             layout.removeView(findViewById(R.id.addSubjButton));
             if (subjectList != null) {
                 for (String subject : subjectList) {
                     Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
-                    newSkill.setText(subjectList.get(0));
+                    newSkill.setText(subject);
                     layout.addView(newSkill);
                 }
             }
             //Have the add button stay at the bottom
             layout.addView(b);
         }
-
-
     }
 
     /**
