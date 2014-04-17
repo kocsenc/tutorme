@@ -28,6 +28,7 @@ import android.widget.Toast;
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeProfile;
+import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 
@@ -105,6 +106,11 @@ public class TutorProfileActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        else if (id == R.id.logout_action_bar) {
+            logout();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -445,6 +451,46 @@ public class TutorProfileActivity extends Activity {
         });
 
         alertDialog.show();
+    }
+
+    private void logout() {
+        LogoutTask mAuthTask = new LogoutTask();
+        mAuthTask.execute((Void) null);
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        /**
+         * Do in background, will use api to try and logout
+         */
+        protected Boolean doInBackground(Void... voids) {
+            BackendInterface api = new BackendProxy();
+            try {
+                return api.logout();
+            } catch (APIResponseException e) {
+                return false;
+            }
+        }
+
+        @Override
+        /**
+         * After a api call
+         */
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                goToLoginPage();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error Logging Out",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
