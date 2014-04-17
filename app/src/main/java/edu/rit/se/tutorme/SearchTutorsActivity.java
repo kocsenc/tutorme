@@ -113,6 +113,7 @@ public class SearchTutorsActivity extends ListActivity {
          */
         protected void onPostExecute(final Boolean success) {
             if (success) {
+                adapter.clear();
                 for(TutorMeUser user: temp){
                     adapter.add(user);
                 }
