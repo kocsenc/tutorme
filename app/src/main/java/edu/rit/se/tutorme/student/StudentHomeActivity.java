@@ -62,8 +62,6 @@ public class StudentHomeActivity extends Activity {
 
         switch (id) {
             case R.id.search_action_bar:
-//                Intent intent = new Intent(this, SearchTutorsActivity.class);
-//                startActivity(intent);
                 return true;
             case R.id.logout_action_bar:
                 logout();
