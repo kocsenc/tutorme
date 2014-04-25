@@ -46,7 +46,7 @@
         android:textStyle="bold"
         android:gravity="center_vertical"/>
 
-    <!--Name Data-->
+    <!--Rate Data-->
     <TextView
         android:id="@+id/tutorrate"
 
