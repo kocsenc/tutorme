@@ -10,7 +10,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -23,7 +26,7 @@ import edu.rit.se.tutorme.api.UserType;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 
-public class SearchTutorsActivity extends ListActivity {
+public class SearchTutorsActivity extends ListActivity implements AdapterView.OnItemClickListener {
 
     ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
     SearchItemAdapter adapter;
@@ -37,10 +40,11 @@ public class SearchTutorsActivity extends ListActivity {
         adapter = new SearchItemAdapter(this, android.R.layout.simple_list_item_1, results);
         setListAdapter(adapter);
 
+        ListView list = (ListView)findViewById(android.R.id.list);
+        list.setOnItemClickListener(this);
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-//        handleIntent(getIntent());
     }
 
     @Override
@@ -83,6 +87,17 @@ public class SearchTutorsActivity extends ListActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        TutorMeUser user = adapter.getItem(i);
+        Intent intent;
+        intent = new Intent(this, TutorProfileActivity.class);
+        intent.putExtra("userName", user.getName());
+        intent.putExtra("userEmail", user.getEmail());
+        intent.putExtra("userType", user.getUserType());
+        startActivity(intent);
     }
 
     /**
