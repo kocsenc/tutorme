@@ -5,7 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_tutor_main">TutorMainActivity</string>
     <string name="title_activity_register">Register New User</string>
-
     <string name="title_section1">My Profile</string>
     <string name="title_section2">Requests</string>
     <string name="title_section3">Messages</string>
@@ -16,5 +15,6 @@
     <string name="title_activity_edit_tutor_page">EditTutorPage</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_student_home">Home</string>
+    <string name="title_activity_view_tutor_profile">ViewTutorProfile</string>
 
 </resources>

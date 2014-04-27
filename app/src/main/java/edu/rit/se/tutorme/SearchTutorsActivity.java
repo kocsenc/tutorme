@@ -93,7 +93,7 @@ public class SearchTutorsActivity extends ListActivity implements AdapterView.On
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         TutorMeUser user = adapter.getItem(i);
         Intent intent;
-        intent = new Intent(this, TutorProfileActivity.class);
+        intent = new Intent(this, ViewTutorProfileActivity.class);
         intent.putExtra("userName", user.getName());
         intent.putExtra("userEmail", user.getEmail());
         intent.putExtra("userType", user.getUserType());
