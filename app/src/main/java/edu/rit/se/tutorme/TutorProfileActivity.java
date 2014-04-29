@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.animation.*;
 
 import org.w3c.dom.Text;
 
@@ -295,6 +297,15 @@ public class TutorProfileActivity extends Activity {
                 for (String subject : subjectList) {
                     Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
                     newSkill.setText(subjectList.get(0));
+
+                    //Add functionality to button
+                    newSkill.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            removeSkill(view);
+                        }
+                    });
+
                     layout.addView(newSkill);
                 }
             }
@@ -304,6 +315,7 @@ public class TutorProfileActivity extends Activity {
 
 
     }
+
 
     /**
      * Method call to populate fields with correct information
@@ -434,6 +446,17 @@ public class TutorProfileActivity extends Activity {
                 Button newSkill = new Button(findViewById(R.id.subjectList).getContext());
                 dummySubjectList.add(skill);
                 newSkill.setText(skill);
+                //newSkill.setBackgroundColor(getResources().getColor(R.color.gray));
+
+
+                //Add functionality to button
+                newSkill.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        removeSkill(view);
+                    }
+                });
+
                 LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
                 layout.removeView(v);
                 layout.addView(newSkill);
@@ -451,6 +474,61 @@ public class TutorProfileActivity extends Activity {
         });
 
         alertDialog.show();
+    }
+
+
+    /**
+     * Method which removes a subject from the UI and the backend
+     */
+    public void removeSkill(View view) {
+        //Create animations
+        final Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        final Animation fadeOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
+
+        //Grab the button
+        Button clicked = (Button) view;
+
+        //Remove skill from list
+        for (String s : dummySubjectList) {
+            if (s == clicked.getText()) {
+                dummySubjectList.remove(s);
+            }
+        }
+
+        //Get text color so it can be reset later
+        final ColorStateList tc = clicked.getTextColors();
+        final CharSequence theSkill = clicked.getText();
+
+        //Change the button, fade in/out
+        view.startAnimation(fadeOut);
+        clicked.setText("Undo");
+        clicked.setTextColor(getResources().getColor(R.color.red));
+        view.startAnimation(fadeIn);
+
+        //User clicks on 'undo' option
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Reset the button to the skill
+                Button clicked = (Button) view;
+                view.startAnimation(fadeOut);
+                clicked.setText(theSkill);
+                clicked.setTextColor(tc);
+                view.startAnimation(fadeIn);
+
+                //Add skill to list
+                dummySubjectList.add(theSkill.toString());
+
+                //User clicks on skill button
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        removeSkill(view);
+                    }
+                });
+            }
+        });
+
     }
 
 
