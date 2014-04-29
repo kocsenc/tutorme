@@ -276,7 +276,7 @@ public class BackendProxy implements BackendInterface {
 
             String rawResponse = httpRequest.sendJSONPost(this.uri + "/profiles/search", searchRequestBody);
             JSONObject response = new JSONObject(rawResponse);
-            ArrayList<TutorMeUser> results = new ArrayList<>();
+            ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
 
             if (response.get("status").equals("success")) {
 

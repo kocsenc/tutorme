@@ -4,7 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -57,6 +56,10 @@ public class TutorMeProfile {
         this.subjects = subjects;
     }
 
+    /**
+     * Loads the internal data store into
+     * the instance variables.
+     */
     public void load() {
         try {
             this.rate = this.rawData.getDouble("rate");
@@ -75,18 +78,34 @@ public class TutorMeProfile {
         }
     }
 
+    /**
+     * Getter for the rate.
+     * @return the rate
+     */
     public Double getRate() {
         return rate;
     }
 
+    /**
+     * Getter for description.
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Setter for description.
+     * @param d the description
+     */
     public void setDescription(String d) {
         description = d;
     }
 
+    /**
+     * Getter for grade levels.
+     * @return
+     */
     public ArrayList<String> getGradeLevels() {
         return gradeLevels;
     }

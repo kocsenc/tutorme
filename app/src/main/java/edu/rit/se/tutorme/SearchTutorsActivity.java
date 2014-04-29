@@ -3,6 +3,7 @@ package edu.rit.se.tutorme;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,19 +12,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
+import edu.rit.se.tutorme.api.UserType;
 import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 
 public class SearchTutorsActivity extends ListActivity {
 
     ArrayList<TutorMeUser> results = new ArrayList<TutorMeUser>();
-    ArrayAdapter<TutorMeUser> adapter;
+    SearchItemAdapter adapter;
     private SearchUserTask searchTask = null;
     private String query;
 
@@ -31,17 +34,18 @@ public class SearchTutorsActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_tutors);
-        adapter = new ArrayAdapter<TutorMeUser>(this, R.layout.list_view_item, results);
+        adapter = new SearchItemAdapter(this, android.R.layout.simple_list_item_1, results);
         setListAdapter(adapter);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        handleIntent(getIntent());
+//        handleIntent(getIntent());
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
+        setIntent(intent);
         handleIntent(intent);
     }
 
@@ -49,10 +53,8 @@ public class SearchTutorsActivity extends ListActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 
-            //TODO: Perform search
             searchTask = new SearchUserTask();
             searchTask.execute();
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -61,9 +63,12 @@ public class SearchTutorsActivity extends ListActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.student_menu, menu);
 
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.search_action_bar).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        String pkg = "edu.rit.se.tutorme";
+        String file = "edu.rit.se.tutorme.SearchTutorsActivity";
+        ComponentName name = new ComponentName(pkg, file);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search_action_bar).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(name));
 
         return true;
     }
@@ -86,18 +91,39 @@ public class SearchTutorsActivity extends ListActivity {
      */
     public class SearchUserTask extends AsyncTask<Void, Void, Boolean> {
 
+        private ArrayList<TutorMeUser> temp = new ArrayList<TutorMeUser>();
+
         @Override
         protected Boolean doInBackground(Void... voids) {
             BackendInterface api = new BackendProxy();
+            temp.clear();
             try {
-                results = api.search(query);
+                temp = api.search(query);
                 return true;
             } catch (TokenMismatchException e) {
                 e.printStackTrace();
-                results.clear();
                 return false;
             }
 
+        }
+
+        @Override
+        /**
+         * After a api call
+         */
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                adapter.clear();
+                for(TutorMeUser user: temp){
+                    adapter.add(user);
+                }
+
+                adapter.notifyDataSetChanged();
+            } else {
+                results.clear();
+                Toast.makeText(getApplicationContext(), "Error Performing Search",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

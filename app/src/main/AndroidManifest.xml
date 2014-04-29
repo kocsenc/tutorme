@@ -14,9 +14,8 @@
         android:theme="@style/AppTheme">
 
         <meta-data
-            android:name="android.app.searchable"
-            android:value="edu.rit.se.tutorme.SearchTutorsActivity"
-            android:resource="@xml/searchable" />
+            android:name="android.app.default_searchable"
+            android:value="edu.rit.se.tutorme.SearchTutorsActivity"/>
 
         <!-- Register Activity -->
         <activity
@@ -51,21 +50,18 @@
         <activity
             android:name="edu.rit.se.tutorme.SearchTutorsActivity"
             android:label="@string/title_activity_search_tutors"
-            android:parentActivityName=".student.StudentHomeActivity">
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchTutorsActivity"
-                android:resource="@xml/searchable" />
+            android:parentActivityName=".student.StudentHomeActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
-                <category android:name="android.intent.categoty.DEFAULT"/>
+
+                <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.app.searchable"
-                android:value="edu.rit.se.tutorme.SearchTutorsActivity"
                 android:resource="@xml/searchable" />
         </activity>
     </application>
-    
+
 </manifest>

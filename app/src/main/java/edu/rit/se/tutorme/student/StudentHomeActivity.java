@@ -22,7 +22,6 @@ import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 
-
 public class StudentHomeActivity extends Activity {
 
     private String studentName;
@@ -37,7 +36,6 @@ public class StudentHomeActivity extends Activity {
         Bundle userInfo = intent.getExtras();
         setupUserInfo(userInfo);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,8 +62,6 @@ public class StudentHomeActivity extends Activity {
 
         switch (id) {
             case R.id.search_action_bar:
-//                Intent intent = new Intent(this, SearchTutorsActivity.class);
-//                startActivity(intent);
                 return true;
             case R.id.logout_action_bar:
                 logout();

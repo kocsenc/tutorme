@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+
+    android:padding="6dip">
+
+    <!--Tutor Name-->
+    <TextView
+        android:id="@+id/name"
+
+        android:layout_width="wrap_content"
+        android:layout_height="26dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:ellipsize="marquee"/>
+
+    <!--Name Data-->
+    <TextView
+        android:id="@+id/tutorname"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/name"
+
+        android:singleLine="true"
+        android:ellipsize="marquee"/>
+
+    <!--Rate-->
+    <TextView
+        android:id="@+id/rate"
+
+        android:layout_width="wrap_content"
+        android:layout_height="26dip"
+
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/name"
+
+        android:textStyle="bold"
+        android:gravity="center_vertical"/>
+
+    <!--Name Data-->
+    <TextView
+        android:id="@+id/tutorrate"
+
+        android:layout_width="fill_parent"
+        android:layout_height="26dip"
+
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/rate"
+
+        android:gravity="center_vertical"/>
+
+</RelativeLayout>
