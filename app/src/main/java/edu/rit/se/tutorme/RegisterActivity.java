@@ -290,7 +290,24 @@ public class RegisterActivity extends Activity {
             mRegTask = null;
             showProgress(false);
         }
+    }
 
+    /*
+    The async task to login the user
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+        private final String mEmail;
+        private final String mPassword;
+        private TutorMeUser user = null;
 
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return null;
+        }
     }
 }
