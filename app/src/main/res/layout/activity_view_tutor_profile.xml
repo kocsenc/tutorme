@@ -1,0 +1,232 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:baselineAligned="false"
+        android:focusable="false"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_weight="0.94">
+
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="162dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="0.98"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/tutor_rounded_bg"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:cropToPadding="false"
+                            android:focusable="false"
+                            android:paddingRight="10dp"
+                            android:src="@drawable/ic_tutorme" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/UserNameField"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/gray"
+                                android:textSize="25dp" />
+
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rochester, NY"
+                                android:textColor="@color/gray" />
+
+                            <TextView
+                                android:id="@+id/textView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="14623"
+                                android:textColor="@color/gray" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/tutor_rounded_bg">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="top"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:background="@android:color/transparent"
+                            android:gravity="center_horizontal"
+                            android:text="Bio"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/gray" />
+
+                        <View
+                            android:layout_width="320dp"
+                            android:layout_height="2px"
+                            android:background="#90909090" />
+
+                        <TextView
+                            android:id="@+id/BioField"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:background="@android:color/transparent"
+                            android:editable="true"
+                            android:padding="10dp"
+                            android:text=""
+                            android:textColor="@color/gray"
+                            android:textIsSelectable="false" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/tutor_rounded_bg">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="top"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:gravity="center_horizontal"
+                            android:text="Grade Levels"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/gray" />
+
+                        <View
+                            android:layout_width="320dp"
+                            android:layout_height="2px"
+                            android:background="#90909090" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TextView
+                                android:id="@+id/GradeLevelField"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="15dp"
+                                android:text=""
+                                android:textColor="@color/gray" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/tutor_rounded_bg">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="top"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:gravity="center_horizontal"
+                            android:text="Subjects"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/gray" />
+
+                        <View
+                            android:layout_width="320dp"
+                            android:layout_height="2px"
+                            android:background="#90909090" />
+
+                        <LinearLayout
+                            android:id="@+id/subjectList"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:orientation="vertical">
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+
+        <!--<Button-->
+            <!--android:id="@+id/edit_button"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/red"-->
+            <!--android:clickable="true"-->
+            <!--android:enabled="true"-->
+            <!--android:text="Edit"-->
+            <!--android:textColor="#FFFFFF" />-->
+
+
+        <Button
+            android:id="@+id/message_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:clickable="true"
+            android:enabled="true"
+            android:text="Send Message (not implemented)"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</RelativeLayout>
