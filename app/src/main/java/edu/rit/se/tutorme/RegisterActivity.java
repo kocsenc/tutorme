@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,8 @@ import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeUser;
 import edu.rit.se.tutorme.api.UserType;
 import edu.rit.se.tutorme.api.exceptions.APIResponseException;
+import edu.rit.se.tutorme.api.exceptions.AuthenticationException;
+import edu.rit.se.tutorme.student.StudentHomeActivity;
 
 public class RegisterActivity extends Activity {
 
@@ -34,6 +38,7 @@ public class RegisterActivity extends Activity {
     private View mProgressView;
     private View mRegisterView;
     private UserRegisterTask mRegTask = null;
+    private UserLoginTask mLogTask = null;
     private RadioButton mStudentButton;
     private RadioButton mTeacherButton;
 
@@ -127,9 +132,42 @@ public class RegisterActivity extends Activity {
     /*
         Takes user back into login screen
      */
-    private void onSuccessRegister(TutorMeUser registerUser) {
+    private void onSuccessRegister(String registerUser, String mPassword) {
+
+        /*
         UserType type = registerUser.getUserType();
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+        // Hide the keyboard
+        InputMethodManager im = (InputMethodManager) this.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        */
+
+        mLogTask = new UserLoginTask(registerUser,mPassword);
+        mLogTask.execute();
+
+    }
+
+    private void onSuccessLogin(TutorMeUser loginUser) {
+        UserType type = loginUser.getUserType();
+        Intent intent;
+        if (type.equals(UserType.Tutor)) {
+            intent = new Intent(this, TutorProfileActivity.class);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
+        } else {
+            intent = new Intent(this, StudentHomeActivity.class);
+            intent.putExtra("userName", loginUser.getName());
+            intent.putExtra("userEmail", loginUser.getEmail());
+            intent.putExtra("userType", loginUser.getUserType());
+        }
+
+        // Hide keyboard before moving to next activity
+        InputMethodManager im = (InputMethodManager) this.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
         startActivity(intent);
     }
 
@@ -252,9 +290,12 @@ public class RegisterActivity extends Activity {
         TutorMeUser newUser;
         String mPassword;
         BackendInterface api;
+        private TutorMeUser user = null;
+        String mEmail;
 
         UserRegisterTask(String name, String zip, String email, String password, UserType user) {
             newUser = new TutorMeUser(user, name, email, zip);
+            mEmail = email;
             mPassword = password;
             api = new BackendProxy();
 
@@ -268,19 +309,23 @@ public class RegisterActivity extends Activity {
 
                 return true;
             } catch (APIResponseException e) {
+                //TODO: ADD SOME BULLCRAP ERROR HANDLING THAT DOES SHIT
                 return false;
             }
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            mRegTask = null;
+
             showProgress(false);
 
             if (success) {
-                onSuccessRegister(this.newUser);
+
+                onSuccessRegister(mEmail,mPassword);
+                mRegTask = null;
                 finish();
             } else {
+                mRegTask = null;
                 finish();
             }
         }
@@ -292,5 +337,48 @@ public class RegisterActivity extends Activity {
         }
 
 
+    }
+
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+        private final String mEmail;
+        private final String mPassword;
+        private TutorMeUser user = null;
+
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            BackendInterface api = new BackendProxy();
+
+            try {
+                this.user = api.login(mEmail, mPassword);
+                return true;
+            } catch (AuthenticationException e) {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mLogTask = null;
+            showProgress(false);
+
+            if (success) {
+                onSuccessLogin(this.user);
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mLogTask = null;
+            showProgress(false);
+        }
     }
 }
