@@ -45,6 +45,9 @@ public class SearchTutorsActivity extends ListActivity implements AdapterView.On
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        handleIntent(intent);
     }
 
     @Override
