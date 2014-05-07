@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +40,14 @@ public class ViewTutorProfileActivity extends Activity {
 
         Intent myIntent = getIntent();
         Bundle userInfo = myIntent.getExtras();
+
+        final Button sendRequest = (Button) findViewById(R.id.message_button);
+        sendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendRequest.setBackgroundColor(-16711936);
+            }
+        });
 
         // Getting TutorMeProfile
         TutorMeProfileTask task = new TutorMeProfileTask(userInfo.getString("userEmail"));
