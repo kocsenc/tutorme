@@ -44,6 +44,7 @@ public class TutorProfileActivity extends Activity {
     ArrayList<String> subjectList;
     ArrayList<String> gradeList;
     ArrayList<String> dummySubjectList = new ArrayList<String>();
+    ArrayList<Button> subjectButtons = new ArrayList<Button>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +158,8 @@ public class TutorProfileActivity extends Activity {
         });
         saveButton.startAnimation(revTranslate);
         saveButton.setVisibility(View.VISIBLE);
+
+        enableSkillButtons();
     }
 
     /**
@@ -178,7 +181,7 @@ public class TutorProfileActivity extends Activity {
         alertDialog.setIcon(R.drawable.ic_tutorme);
 
         //YES
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 //Create animations
                 final Animation animrevTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reverse_translate);
@@ -215,7 +218,7 @@ public class TutorProfileActivity extends Activity {
         });
 
         //NO
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 //Create animations
                 final Animation animrevTranslate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.reverse_translate);
@@ -305,14 +308,14 @@ public class TutorProfileActivity extends Activity {
                             removeSkill(view);
                         }
                     });
-
+                    subjectButtons.add(newSkill);
                     layout.addView(newSkill);
+                    disableSkillButtons();
                 }
             }
             //Have the add button stay at the bottom
             layout.addView(b);
         }
-
 
     }
 
@@ -388,6 +391,9 @@ public class TutorProfileActivity extends Activity {
         //Get the arraylists of new info
         ArrayList<String> array = (ArrayList<String>) newInfo.get(1);
 
+        //remove all undo buttons
+
+
         //Add the new subjects to the master subject list
         for (String subject : dummySubjectList) {
             subjectList.add(subject);
@@ -396,6 +402,9 @@ public class TutorProfileActivity extends Activity {
         //Update the biofield
         EditText t = (EditText) findViewById(R.id.BioField);
         t.setText((CharSequence) array.get(0));
+
+        removeUndoButtons();
+        disableSkillButtons();
 
     }
 
@@ -456,6 +465,7 @@ public class TutorProfileActivity extends Activity {
                         removeSkill(view);
                     }
                 });
+                subjectButtons.add(newSkill);
 
                 LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
                 layout.removeView(v);
@@ -505,6 +515,9 @@ public class TutorProfileActivity extends Activity {
         clicked.setTextColor(getResources().getColor(R.color.red));
         view.startAnimation(fadeIn);
 
+        Toast.makeText(getApplicationContext(), theSkill + " deleted",
+                Toast.LENGTH_SHORT).show();
+
         //User clicks on 'undo' option
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -515,6 +528,9 @@ public class TutorProfileActivity extends Activity {
                 clicked.setText(theSkill);
                 clicked.setTextColor(tc);
                 view.startAnimation(fadeIn);
+
+                Toast.makeText(getApplicationContext(), theSkill + " undeleted",
+                        Toast.LENGTH_SHORT).show();
 
                 //Add skill to list
                 dummySubjectList.add(theSkill.toString());
@@ -529,6 +545,28 @@ public class TutorProfileActivity extends Activity {
             }
         });
 
+    }
+
+    public void enableSkillButtons() {
+        for (Button b : subjectButtons) {
+            b.setEnabled(true);
+        }
+
+    }
+
+    public void disableSkillButtons() {
+        for (Button b : subjectButtons) {
+            b.setEnabled(false);
+        }
+    }
+
+    public void removeUndoButtons() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.subjectList);
+        for (Button b : subjectButtons) {
+            if (b.getText() == "Undo") {
+                layout.removeView(b);
+            }
+        }
     }
 
 
