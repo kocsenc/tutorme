@@ -57,7 +57,7 @@ public class ViewTutorProfileActivity extends Activity {
         // The task should assign this.tutorProfile
 
         setupUserInfo(userInfo);
-
+        getActionBar().setTitle("View Tutor");
     }
 
 
