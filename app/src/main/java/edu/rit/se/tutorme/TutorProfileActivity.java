@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.animation.*;
@@ -93,6 +94,7 @@ public class TutorProfileActivity extends Activity {
         // The task should assign this.tutorProfile
 
         setupUserInfo(userInfo);
+
 
     }
 
@@ -498,12 +500,15 @@ public class TutorProfileActivity extends Activity {
         //Grab the button
         Button clicked = (Button) view;
 
+        String temp = null;
         //Remove skill from list
         for (String s : dummySubjectList) {
             if (s == clicked.getText()) {
-                dummySubjectList.remove(s);
+                temp = s;
             }
         }
+
+        dummySubjectList.remove(temp);
 
         //Get text color so it can be reset later
         final ColorStateList tc = clicked.getTextColors();

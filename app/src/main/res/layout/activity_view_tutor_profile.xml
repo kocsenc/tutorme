@@ -138,7 +138,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/gradelevel"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/rounded_background_margin"
@@ -152,18 +152,15 @@
                             android:layout_height="2px"
                             android:background="#90909090" />
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/gradeLevelField"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent">
+                            android:layout_height="fill_parent"
+                            android:layout_marginRight="@dimen/rounded_background_margin"
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/GradeLevelField"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="15dp"
-                                android:text=""
-                                android:textColor="@color/gray" />
-                        </RelativeLayout>
+                        </LinearLayout>
+
                     </LinearLayout>
                 </TableRow>
 
