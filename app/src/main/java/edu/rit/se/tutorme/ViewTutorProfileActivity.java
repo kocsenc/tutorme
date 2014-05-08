@@ -2,6 +2,7 @@ package edu.rit.se.tutorme;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,7 +46,7 @@ public class ViewTutorProfileActivity extends Activity {
         sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendRequest.setBackgroundColor(-16711936);
+                sendRequest.setBackgroundColor(Color.parseColor("#29A048"));
                 sendRequest.setText("✓ Requested");
             }
         });
