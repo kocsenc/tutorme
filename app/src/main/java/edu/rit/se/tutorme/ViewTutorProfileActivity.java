@@ -46,6 +46,7 @@ public class ViewTutorProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
                 sendRequest.setBackgroundColor(-16711936);
+                sendRequest.setText("✓ Requested");
             }
         });
 
