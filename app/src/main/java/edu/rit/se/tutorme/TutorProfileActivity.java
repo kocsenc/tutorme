@@ -33,6 +33,7 @@ import org.w3c.dom.Text;
 import edu.rit.se.tutorme.api.BackendInterface;
 import edu.rit.se.tutorme.api.BackendProxy;
 import edu.rit.se.tutorme.api.TutorMeProfile;
+import edu.rit.se.tutorme.api.exceptions.APIResponseException;
 import edu.rit.se.tutorme.api.exceptions.InvalidParametersException;
 import edu.rit.se.tutorme.api.exceptions.TokenMismatchException;
 
@@ -114,6 +115,9 @@ public class TutorProfileActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.logout_action_bar){
+            logout();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -604,4 +608,50 @@ public class TutorProfileActivity extends Activity {
         }
     }
 
+    /**
+     * Everything relating with logging out from the Tutor Profile Activity
+     *
+     */
+    /**
+     * Logs out of the session using the API
+     */
+    private void logout() {
+        LogoutTask mAuthTask = new LogoutTask();
+        mAuthTask.execute((Void) null);
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        /**
+         * Do in background, will use api to try and logout
+         */
+        protected Boolean doInBackground(Void... voids) {
+            BackendInterface api = new BackendProxy();
+            try {
+                return api.logout();
+            } catch (APIResponseException e) {
+                return false;
+            }
+        }
+
+        @Override
+        /**
+         * After a api call
+         */
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                goToLoginPage();
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error Logging Out",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
