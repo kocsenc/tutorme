@@ -42,7 +42,7 @@ public class TutorProfileActivity extends Activity {
     String tutorEmail;
     TutorMeProfile tutorProfile;
     String bioInfo;
-    ArrayList<String> subjectList;
+    ArrayList<String> subjectList = new ArrayList<String>();
     ArrayList<String> gradeList;
     ArrayList<String> dummySubjectList = new ArrayList<String>();
     ArrayList<Button> subjectButtons = new ArrayList<Button>();
