@@ -51,7 +51,7 @@ public class SearchItemAdapter extends ArrayAdapter<TutorMeUser> {
             }
 
             if(rate != null){
-                rate.setText("Rate: ");
+                rate.setText("Rate: $");
             }
 
             if(tutorrate != null){
